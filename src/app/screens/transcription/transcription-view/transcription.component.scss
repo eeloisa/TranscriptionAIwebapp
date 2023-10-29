@@ -1,0 +1,214 @@
+.box {
+  display: inline-block;
+  height: 300px;
+  width: 100%;
+  min-width: 420px;
+  margin-bottom: 30px;
+  padding-right: 25px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.col-left,
+.col-right {
+  display: inline-block;
+}
+
+.col-left {
+  width: 60%;
+}
+
+.col-right {
+  width: 40%;
+  position: absolute;
+  margin-left: auto;
+}
+
+.transcription-name {
+  font-size: 16px;
+}
+
+.transcription-name span {
+  font-weight: normal;
+}
+
+.box-body {
+  height: 100%;
+  width: 100%;
+  border: solid 1px rgb(198, 198, 198);
+  overflow: auto;
+  box-shadow: 5px 5px 10px rgb(182, 182, 182);
+  margin-top: 5px;
+}
+
+.transcription-dialogs {
+  height: 450px;
+}
+
+.transcription-media {
+  text-align: center;
+  height: 200px;
+  margin-bottom: 0px;
+}
+
+.transcription-speakers {
+  margin-top: 18px;
+  height: 75px;
+  display: block;
+}
+
+.transcription-speakers .box-body {
+  box-shadow: none;
+}
+
+.transcription-chat {
+  height: 415px;
+  display: block;
+}
+
+.transcription-chat .box-body {
+  overflow: hidden;
+}
+
+.transcription-chat .box-body label {
+  font-weight: normal;
+}
+
+.transcription-chat .box-in {
+  height: 100%;
+  width: 100%;
+  border: solid 1px rgb(198, 198, 198);
+}
+
+.chat-user {
+  padding: 15px;
+  height: 100px;
+}
+
+.chat-user textarea {
+  padding: 10px;
+}
+
+
+.chat-ia {
+  height: 260px;
+  padding: 15px;
+  margin-top: -20px;
+}
+
+.chat-ia .box-in {
+  text-align: justify;
+  padding: 10px;
+  //background-color: rgb(254, 254, 255);
+  overflow: auto;
+  -webkit-user-modify: read-plaintext-only;
+}
+
+.button-ask {
+  margin-top: 15px;
+}
+
+.transcription-media .box-body {
+  overflow: hidden;
+  border: none;
+  box-shadow: none;
+}
+
+#audioPlayer{
+  margin-top: 100px;
+}
+
+.transcription-dialogs .box-body div {
+  display: inline-block;
+}
+
+.dialogue {
+  display: block !important;
+  margin: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.dialogue .text {
+  display: block;
+  font-weight: normal;
+}
+
+.dialogue .infos {
+  color: rgb(168, 168, 168);
+  font-size: 12px;
+  display: block !important;
+}
+
+.dialogue .infos .speaker {
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+.speaker-box {
+  width: 125px;
+  height: 35px;
+  padding: 5px 3px;
+  border: 1px solid rgb(190, 190, 190);
+  margin-right: 5px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.buttons {
+  width: 100%;
+}
+
+textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+}
+
+.list-empty {
+  display: inline-block;
+  width: 100%;
+  margin-top: 200px;
+  font-size: 18px;
+}
+
+.speakers {
+  width: 23%;
+  margin: 5px;
+  overflow: hidden;
+  display: inline-block;
+  padding: 10px;
+  border: 1px dashed rgb(190, 190, 190);
+  cursor: pointer;
+}
+
+nb-card-footer .box-body {
+  text-align: justify;
+  padding: 10px;
+  -webkit-user-modify: read-plaintext-only;
+}
+
+nb-card-footer .box {
+  width: 25%;
+  height: 200px;
+  min-width: auto;
+}
+
+@media screen and (max-width: 1350px) {
+
+  .box,
+  .col-left,
+  .col-right {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding-right: 0px;
+  }
+
+  nb-card-footer .box {
+    width: 100%;
+  }
+}

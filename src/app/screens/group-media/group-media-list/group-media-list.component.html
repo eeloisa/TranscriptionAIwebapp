@@ -1,0 +1,90 @@
+<nb-card>
+  <nb-card-header>
+    <h3>Pastas de Mídias</h3>
+  </nb-card-header>
+
+  <nb-card-body>
+
+    <form (ngSubmit)="filter()" #form="ngForm">
+
+      <div class="forms-inputs list-filter">
+        <input type="text" nbInput placeholder="Filtrar por Nome" name="filter-group-media" #name="ngModel"
+          [(ngModel)]="filterData" />
+        <button mat-mini-fab color="basic" nbTooltip="Filtrar" class="action-filter">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+
+    </form>
+
+    <nb-card *ngIf="!dataList?.length" class="list-empty">
+      <nb-card-header>
+        Não foi encontrada nenhuma Pasta de Mídia!</nb-card-header>
+
+      <nb-card-body>
+        <button type="button" mat-mini-fab color="primary" nbTooltip="Adicionar" (click)="onAdd()"
+          class="action-list-empty">
+          <mat-icon>add</mat-icon>
+        </button>
+      </nb-card-body>
+    </nb-card>
+
+    <mat-table mat-tabl *ngIf="dataList?.length" [dataSource]="dataList" class="table-scroll mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Nome
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ element.title }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="transcriptionStatus">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Situação Transcrição
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ transcriptionStatusLabel(element.transcriptionStatus) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="user">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Usuário
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ element.user }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="action-column">
+          <button type="button" mat-mini-fab color="primary" nbTooltip="Adicionar" (click)="onAdd()"
+            class="action-column-header">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let element" class="action-column">
+          <button *ngIf="element.transcriptionStatus == 3" type="button" mat-icon-button nbTooltip="Transcrição"
+            (click)="goTranscription(element)">
+            <mat-icon>title</mat-icon>
+          </button>
+
+          <button type="button" mat-icon-button nbTooltip="Editar" (click)="onEdit(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button type="button" mat-icon-button color="warn" nbTooltip="Remover" (click)="onRemove(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+  </nb-card-body>
+</nb-card>

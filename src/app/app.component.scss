@@ -1,0 +1,43 @@
+#lockscreen {
+  position: fixed;
+  z-index: 1500;
+  cursor: forbidden;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(129, 129, 129, 0.3);
+}
+
+#loader {
+  position: absolute;
+  left: 60%;
+  top: 50%;
+  z-index: 1;
+  width: 60px;
+  height: 60px;
+  margin: -76px 0 0 -76px;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,56 @@
+.col-left,
+.col-right {
+  display: inline-block;
+}
+
+.col-left {
+  width: 60%;
+}
+
+.col-right {
+  width: 40%;
+  position: absolute;
+  margin-left: -5%;
+}
+
+.box {
+  display: inline-block;
+  height: 200px;
+  width: 100%;
+  margin-bottom: 30px;
+  padding-right: 25px;
+}
+
+.box-body {
+  height: 100%;
+  width: 100%;
+  border: solid 1px rgb(198, 198, 198);
+  overflow: auto;
+  box-shadow: 5px 5px 10px rgb(182, 182, 182);
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.confirmPassword {
+  margin-top: 5px;
+}
+
+.confirmPasswordError {
+  border: 1px solid red !important;
+}
+
+
+.col-left input,
+.col-left nb-select {
+  max-width: none !important;
+  width: 60% !important;
+}
+
+.role {
+  margin-bottom: 10px;
+}
+
+.action-column {
+  flex: 0 0 100px;
+}
+

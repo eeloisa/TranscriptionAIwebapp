@@ -1,0 +1,21 @@
+<div id="lockscreen" *ngIf="isLoading">
+  <div id="loader"></div>
+</div>
+
+<nb-layout>
+  <nb-layout-header fixed *ngIf="isLogged">
+    <h2>Transcrição IA</h2>
+    <app-profile-menu class="right"></app-profile-menu>
+  </nb-layout-header>
+
+  <nb-sidebar *ngIf="isLogged" class="menu-sidebar" style="width: 'auto'" tag="menu-sidebar" responsive>
+    <app-menu></app-menu>
+  </nb-sidebar>
+
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+  <!--<nb-layout-footer fixed *ngIf="isLogged"> </nb-layout-footer>-->
+
+</nb-layout>

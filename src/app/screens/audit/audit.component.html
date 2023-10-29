@@ -1,0 +1,68 @@
+<nb-card>
+  <nb-card-header>
+    <h3>Auditoria</h3>
+  </nb-card-header>
+
+  <nb-card-body>
+
+    <form (ngSubmit)="filter()" #form="ngForm">
+
+      <div class="forms-inputs list-filter">
+        <input type="text" nbInput placeholder="Filtrar por Usuário" name="filter-audit" #name="ngModel"
+          [(ngModel)]="filterData" />
+        <button mat-mini-fab color="basic" nbTooltip="Filtrar" class="action-filter">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+
+    </form>
+
+
+    <nb-card *ngIf="!dataList?.length" class="list-empty">
+      <nb-card-header>
+        Não foi encontrado nenhuma Auditoria!</nb-card-header>
+    </nb-card>
+
+    <mat-table mat-tabl *ngIf="dataList?.length" [dataSource]="dataList" class="table-scroll mat-elevation-z8">
+      <ng-container matColumnDef="entityName">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Nome
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ element.entityName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Ação
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ getAction(element.action) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="userId">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Usuário
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ element.userId }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="inclusionDate">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Data
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ element.inclusionDate }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+  </nb-card-body>
+</nb-card>

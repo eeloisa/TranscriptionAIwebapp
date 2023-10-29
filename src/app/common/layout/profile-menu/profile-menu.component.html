@@ -1,0 +1,12 @@
+<div class="right">
+  <div class="user-infos left">
+    <div>{{user.name}}</div>
+    <div [ngClass]="isQuotaExceeded() ? 'credit-risk' : '' ">Créditos restantes: {{account.userCotaAvailable}}</div>
+  </div>
+
+  <nb-actions class="profile-menu right">
+    <nb-action class="profile" [nbContextMenu]="items" nbContextMenuPlacement="bottom"
+      icon="person-outline"></nb-action>
+  </nb-actions>
+
+</div>

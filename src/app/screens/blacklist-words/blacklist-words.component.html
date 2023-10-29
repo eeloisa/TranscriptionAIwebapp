@@ -1,0 +1,80 @@
+<nb-card>
+  <nb-card-header>
+    <h3>Palavras Reservadas</h3>
+  </nb-card-header>
+
+  <nb-card-body>
+
+    <form (ngSubmit)="filter()" #form="ngForm">
+
+      <div class="forms-inputs list-filter">
+        <input type="text" nbInput placeholder="Filtrar por Palavra" name="filter-parameter" #name="ngModel"
+          [(ngModel)]="filterData" />
+        <button mat-mini-fab color="basic" nbTooltip="Filtrar" class="action-filter">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+
+    </form>
+
+
+    <nb-card *ngIf="!dataList?.length" class="list-empty">
+      <nb-card-header>
+        Não foi encontrada nenhuma Palavra Reservada!</nb-card-header>
+      <nb-card-body *ngIf="!entityList?.length">
+        <button type="button" mat-mini-fab color="primary" nbTooltip="Adicionar" (click)="onAdd()"
+          class="action-list-empty">
+          <mat-icon>add</mat-icon>
+        </button>
+      </nb-card-body>
+    </nb-card>
+
+    <mat-table mat-tabl *ngIf="dataList?.length" [dataSource]="dataList" class="table-scroll mat-elevation-z8">
+
+      <ng-container matColumnDef="wordBlocked">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Palavra Bloqueada*
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          <input [disabled]="element.id" type="text" nbInput placeholder="Palavra Bloqueada" name="{{element.id}}-wordBlocked" #name="ngModel"
+            [(ngModel)]="element.wordBlocked" />
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="wordAccepted">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Nova Palavra*
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          <input type="text" nbInput placeholder="Nova Palavra" name="{{element.id}}-wordAccepted" #name="ngModel"
+            [(ngModel)]="element.wordAccepted" />
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="action-column">
+          <button type="button" mat-mini-fab color="primary" nbTooltip="Adicionar" (click)="onAdd()"
+            class="action-column-header">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="action-column">
+          <button [disabled]="isSaveDisabled(element)" type="button" mat-icon-button color="success" nbTooltip="Salvar"
+            (click)="onSave(element)">
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <button type="button" mat-icon-button color="warn" nbTooltip="Remover" (click)="onRemove(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+
+  </nb-card-body>
+</nb-card>

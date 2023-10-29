@@ -1,0 +1,48 @@
+<nb-card class="modal center">
+  <nb-card-header>
+    <h5>Mídia</h5>
+  </nb-card-header>
+
+  <nb-card-body>
+    <form (ngSubmit)="submit()" #form="ngForm">
+
+      <div class="forms-inputs inputs-modal left">
+        <div class="file-name">
+          <label class="input-label">Nome*: </label>
+          <input [disabled]="isViewMode()" type="text" nbInput name="title" #name="ngModel" [(ngModel)]="media.title" />
+
+          <label class="input-label rigth-input">Ordem*: </label>
+          <input [disabled]="isViewMode()" class="input-number" type="number" nbInput name="order" #name="ngModel"
+            [(ngModel)]="media.order" />
+        </div>
+
+        <div class="file-upload center" *ngIf="!isViewMode()">
+          <mat-form-field>
+            <mat-toolbar>
+              <input matInput [value]="fileName" />
+            </mat-toolbar>
+            <input type="file" id="fileInput" (click)="reset()" (change)="selectFile($event)" name="fileInput" />
+          </mat-form-field>
+        </div>
+
+        <div class="center">
+          <video *ngIf="(!isAudio()) && media.url" width="320" height="auto" preload="auto" controls="controls" autoplay="autoplay">
+            <source src="{{media.url}}" type="{{media.type}}"/>
+          </video>
+
+          <audio *ngIf="isAudio() && media.url" controls="controls" autoplay="autoplay" preload="auto">
+            <source src="{{media.url}}" type="{{media.type}}">
+          </audio>
+        </div>
+
+      </div>
+
+      <button class="left-element" type="button" nbButton status="basic" (click)="cancel()">Voltar</button>
+      <button *ngIf="!isViewMode()" type="submit" [disabled]="isFormDisabled()" nbButton status="primary">Adicionar</button>
+
+    </form>
+
+  </nb-card-body>
+
+
+</nb-card>

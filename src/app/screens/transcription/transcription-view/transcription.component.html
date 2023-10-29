@@ -1,0 +1,130 @@
+<nb-card>
+  <nb-card-body>
+
+    <div class="transcription-board">
+      <div class="col-left">
+        <div class="transcription-find center">
+
+          <form (ngSubmit)="findText()" #form="ngForm">
+            <div class="forms-inputs list-filter">
+              <input type="text" nbInput placeholder="Filtrar por texto" name="filter-transcription" #name="ngModel"
+                [(ngModel)]="filterData" />
+              <button type="submit" mat-mini-fab color="basic" nbTooltip="Filtrar" class="action-filter">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+          </form>
+
+        </div>
+        <div class="box transcription-dialogs">
+          <div class="center">
+            <label class="transcription-name">Transcrição: <span>{{groupMedia.title}}</span></label>
+          </div>
+          <div class="box-body">
+            <div *ngIf="dialogues.length">
+              <div *ngFor="let dialogue of dialogues" class="dialogue" nbTooltip="Play Dialogo"
+                (click)="playMedia(dialogue, true)">
+                <div class="infos"> <span class="speaker"> {{dialogue.speaker}}</span> {{getInfos(dialogue)}}</div>
+                <div class="text">
+                  <span>{{dialogue.text}} </span>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="!dialogues?.length" class="list-empty">
+              Nenhum dialogo com o Texto foi encontrado..
+            </div>
+          </div>
+        </div>
+
+        <div class="box transcription-speakers">
+          <label>Oradores</label>
+          <div class="box-body">
+
+            <div *ngFor="let speaker of transcription.speakers" nbTooltip="Editar Orador" class="speakers"
+              (click)="editSpeaker(speaker)">
+              {{getSpeakerLabel(speaker)}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-right">
+        <div class="box transcription-media">
+          <div class="box-body center">
+
+            <video #videoPlayer id="videoPlayer" width="auto" height="100%" preload="auto" controls="controls"></video>
+
+            <audio #audioPlayer id="audioPlayer" controls="controls" preload="auto"></audio>
+
+          </div>
+        </div>
+
+        <div class="box transcription-chat">
+          <label>Chatbot IA</label>
+          <div class="box-body">
+
+            <div class="chat-user">
+              <label>Pergunta:</label>
+              <div class="box-in">
+                <textarea name="text-ask-chat" placeholder="Faça aqui a sua pergunta sobre a Transcrição para a IA" #name="ngModel" [(ngModel)]="textAskChat"></textarea>
+              </div>
+            </div>
+
+            <div class="center button-ask">
+              <button [disabled]="isAskDisabled()" type="button" nbButton hero status="info"
+                (click)="toAsk()">Perguntar</button>
+            </div>
+
+            <div class="chat-ia">
+              <label>Resposta:</label>
+              <div class="box-in">
+                {{textResponseChat}}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </nb-card-body>
+
+  <nb-card-footer>
+
+    <div class="box transcription-resume">
+      <label>Resumo</label>
+      <div class="box-body">
+        {{transcription.summary}}
+      </div>
+    </div>
+
+    <div class="box transcription-subject">
+      <label>Assuntos</label>
+      <div class="box-body">
+        {{transcription.subject}}
+      </div>
+    </div>
+
+    <div class="box transcription-keyterms">
+      <label>Termos</label>
+      <div class="box-body">
+        {{transcription.categories}}
+      </div>
+    </div>
+
+    <div class="box transcription-entities">
+      <label>Entidades</label>
+      <div class="box-body">
+        {{transcription.brazilianEntities}}
+      </div>
+    </div>
+
+    <div class="buttons center">
+      <button type="button" nbButton status="basic" (click)="download()">Download</button>
+    </div>
+
+  </nb-card-footer>
+
+</nb-card>

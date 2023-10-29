@@ -1,0 +1,120 @@
+<nb-card>
+  <nb-card-header>
+    <h3>Usuário</h3>
+  </nb-card-header>
+
+  <nb-card-body>
+
+    <form (ngSubmit)="toSave()" #form="ngForm">
+
+      <div class="col-left">
+        <div class="forms-inputs">
+          <label class="input-label">Nome*: </label> <input type="text" nbInput placeholder="Nome" name="title"
+            #name="ngModel" [(ngModel)]="account.accountName" />
+        </div>
+
+        <div class="forms-inputs">
+          <label class="input-label">Login*: </label> <input type="text" [disabled]="isEdit()" nbInput placeholder="Login" name="accountLogin"
+            #name="ngModel" [(ngModel)]="account.accountLogin" />
+        </div>
+
+        <div class="forms-inputs">
+          <label class="input-label">Perfil*: </label>
+          <nb-select placeholder="Selecione o Perfil" name="profile" [(selected)]="account.profileId">
+            <nb-option *ngFor="let profile of profiles" [value]="profile.id">{{profile.name}}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="forms-inputs">
+          <nb-checkbox *ngIf="isEdit()" (checkedChange)="changePassword($event)">Mudar Senha?</nb-checkbox>
+          <div *ngIf="isChangePassword">
+            <label class="input-label">Senha*: </label> <input type="password" nbInput placeholder="Senha"
+              name="password" #name="ngModel" [(ngModel)]="password" />
+            <div class="confirmPassword">
+              <label class="input-label"></label> <input type="password" nbInput placeholder="Confirmação Senha"
+                name="confirmPassword" #name="ngModel" [(ngModel)]="confirmPassword"
+                [ngClass]="confirmedPassword() ? '' : 'confirmPasswordError' " />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-right">
+
+        <div *ngIf="getRoles().length" class="box account-roles">
+          <label class="input-label">Permissões: </label>
+          <div class="box-body">
+            <div *ngFor="let role of getRoles()" class="role">{{role.name}}</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="params">
+
+        <div class="table-label">Parâmetros: </div>
+
+        <nb-card *ngIf="!account.params?.length" class="list-empty">
+          <nb-card-header>
+            Não foi encontrado nenhum Parâmetro!</nb-card-header>
+        </nb-card>
+
+        <mat-table mat-tabl *ngIf="account.params?.length" [dataSource]="account.params"
+          class="table-scroll mat-elevation-z8">
+          <ng-container matColumnDef="name">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              Nome
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              {{ element.name }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              Descrição
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              {{ element.description }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="value">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              Valor*
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <input type="text" nbInput placeholder="Valor" name="{{element.code}}-defaultValue" #name="ngModel"
+                [(ngModel)]="element.value" />
+            </mat-cell>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef class="action-column">
+              Ações
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="action-column">
+              <button [disabled]="isParamSaveDisabled(element)" type="button" mat-icon-button color="success"
+                nbTooltip="Salvar" (click)="onParamSave(element)">
+                <mat-icon>save</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedParamColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedParamColumns"></mat-row>
+        </mat-table>
+
+      </div>
+
+      <div class="buttons center">
+        <button nbButton status="basic" type="button" class="left-element" (click)="goBack()">Voltar</button>
+        <button nbButton type="submit" status="success" [disabled]="isFormDisabled()">Salvar</button>
+      </div>
+
+    </form>
+
+  </nb-card-body>
+
+</nb-card>

@@ -1,0 +1,27 @@
+<nb-card class="modal center">
+  <nb-card-header>
+    <h5>Editar Orador</h5>
+  </nb-card-header>
+
+  <nb-card-body>
+    <form (ngSubmit)="submit()" #form="ngForm">
+
+      <div class="forms-inputs inputs-modal center">
+        <div class="input-group speaker-name">
+          <label class="input-label">{{speakerPayload.speaker}}</label>
+        </div>
+        <div class="input-group speaker-name-new">
+          <label class="input-label">Novo Nome: </label>
+          <input type="text" nbInput name="title" #name="ngModel" [(ngModel)]="speakerPayload.speakerNew" />
+        </div>
+      </div>
+
+      <button class="left-element" type="button" nbButton status="basic" (click)="cancel()">Voltar</button>
+      <button type="submit" [disabled]="isFormDisabled()" nbButton status="success">Salvar</button>
+
+    </form>
+
+  </nb-card-body>
+
+
+</nb-card>
