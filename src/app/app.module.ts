@@ -72,6 +72,7 @@ import { CookieStoreService } from './common/services/cookie-auth-store.service'
 import { AuthGuard } from './guard/auth.guard';
 import { BlacklistWordsComponent } from './screens/blacklist-words/blacklist-words.component';
 import { InputMaskModule } from '@ngneat/input-mask';
+import { DownloadComponent } from './common/layout/download/download.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { InputMaskModule } from '@ngneat/input-mask';
     AuditComponent,
     UserListComponent,
     BlacklistWordsComponent,
+    DownloadComponent,
   ],
   imports: [
     BrowserModule,

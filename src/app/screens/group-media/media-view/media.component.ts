@@ -14,15 +14,11 @@ import {
 export class MediaComponent implements OnInit {
   @Input() modalData: any = null;
 
-  mediaTypes: any[];
-
   fileName: string = '';
   media: Media = new Media();
 
   constructor(protected ref: NbDialogRef<MediaComponent>) {
     this.reset();
-    this.mediaTypes = Object.values(MediaTypeEnum);
-    this.mediaTypes = this.mediaTypes.splice(this.mediaTypes.length / 2);
   }
 
   ngOnInit(): void {

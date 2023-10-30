@@ -20,6 +20,8 @@ import { SpeakerPayload } from 'src/app/common/payload/group-media.payload';
 
 import { saveAs } from 'file-saver';
 import { Chat } from 'src/app/common/model/chat.model';
+import { DownloadComponent } from 'src/app/common/layout/download/download.component';
+import { DownloadTypeEnum } from 'src/app/common/enums/download-type.enum';
 
 @Component({
   selector: 'app-transcription',
@@ -133,15 +135,36 @@ export class TranscriptionComponent {
     return this.media.mediaType == MediaTypeEnum.Video;
   }
 
-  download() {
+  download(downloadType: DownloadTypeEnum) {
     const downloadPayload: DownloadPayload = new DownloadPayload();
     downloadPayload.textQuestionIteration = this.textAskChat;
     downloadPayload.textIteration = this.textResponseChat;
 
     this.service
-      .download(downloadPayload, this.groupMediaId)
+      .download(downloadPayload, this.groupMediaId, downloadType)
       .subscribe((blob) => {
-        saveAs(blob, 'transcription-' + this.groupMedia.title + '.doc');
+        saveAs(blob, 'transcription-' + this.groupMedia.title + '.' + DownloadTypeEnum[downloadType].toLowerCase());
+      });
+  }
+
+  openDownloadModal() {
+
+    let downloadTypes: DownloadTypeEnum[] = [];
+    downloadTypes.push(DownloadTypeEnum.Doc);
+    downloadTypes.push(DownloadTypeEnum.Odt);
+    downloadTypes.push(DownloadTypeEnum.Txt);
+    downloadTypes.push(DownloadTypeEnum.Str);
+
+    this.dialogService
+      .open(DownloadComponent, {
+        context: {
+          modalData: downloadTypes,
+        },
+      })
+      .onClose.subscribe((data) => {
+        if (data) {
+          this.download(data);
+        }
       });
   }
 

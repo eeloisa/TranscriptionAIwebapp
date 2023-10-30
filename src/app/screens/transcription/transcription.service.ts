@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { groupMediaFull } from '../group-media/group-media.mock';
 import { Chat } from 'src/app/common/model/chat.model';
+import { DownloadTypeEnum } from 'src/app/common/enums/download-type.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +44,8 @@ export class TranscriptionService {
 
   download(
     payload: DownloadPayload,
-    groupMediaId: number
+    groupMediaId: number,
+    format: DownloadTypeEnum
   ): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -54,7 +56,7 @@ export class TranscriptionService {
     };
 
     return this.http.post<any>(
-      this.BASE_URL + 'download/doc/' + groupMediaId,
+      this.BASE_URL + 'download/' + groupMediaId + '/format/' + format,
       payload,
       httpOptions
     );
