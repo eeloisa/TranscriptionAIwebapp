@@ -22,6 +22,10 @@
   animation: spin 1s linear infinite;
 }
 
+.app-title{
+  margin-left: 15px;
+}
+
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
