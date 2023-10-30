@@ -179,6 +179,15 @@ input {
   color: rgb(255, 103, 103);
 }
 
+nb-menu .menu-item a.active, nb-menu .menu-item a.active .menu-icon,
+nb-menu .menu-item a:hover, nb-menu .menu-item a:hover .menu-icon {
+  color: unset;
+}
+
+nb-menu .menu-item a.active, nb-menu .menu-item a:hover {
+  border-right: gray 5px solid;
+}
+
 @include nb-install-component() {
   .menu-sidebar ::ng-deep .main-container.main-container-fixed {
     width: 10rem;

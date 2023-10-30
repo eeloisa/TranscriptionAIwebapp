@@ -7,7 +7,7 @@ export const environment = {
 
   APP_ACCOUNT_REDIRECT: 'https://accountdev.brainz.group/transcriptionai',
 
-  APP_WEB_URL: 'https://reeducation-web-tt53qq7rpa-uc.a.run.app',
+  APP_WEB_URL: 'https://reeducation-frontend-jfijholz5a-uc.a.run.app',
   APP_API_URL: 'https://reeducation-backend-jfijholz5a-uc.a.run.app',
 
   APP_BRAINZ_NAME_TOKEN: 'brainzTokenApiAuthenticationDev',
