@@ -2,4 +2,21 @@
 @use '@nebular/theme/styles/theming' as *;
 @use '@nebular/theme/styles/themes/default';
 @use '@nebular/theme/styles/themes/dark';
-@use '@nebular/theme/styles/themes/cosmic';
+
+$nb-themes: nb-register-theme(
+  (
+    color-basic-100: white,
+    color-basic-200: #eefafc,
+    color-basic-300: #e8f5fa,
+    color-basic-400: #d6e6f2,
+    color-basic-500: #c7dbeb,
+    color-basic-600: #a9c0db,
+    color-basic-700: #4f969e,
+    color-basic-800: #01652d,
+    color-basic-900: #295c66,
+    color-basic-1000: #244555,
+    color-basic-1100: #121a2b,
+  ),
+  custom,
+  default
+);
