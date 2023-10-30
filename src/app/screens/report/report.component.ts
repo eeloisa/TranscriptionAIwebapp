@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import * as _ from 'lodash';
-import { DownloadTypeEnum } from 'src/app/common/enums/download-type.enum';
+import {
+  DownloadTypeEnum,
+  getAllDownloadEnumKeys,
+} from 'src/app/common/enums/download-type.enum';
 import { ReportEnum, reportLabel } from 'src/app/common/enums/report.enum';
 import { DownloadComponent } from 'src/app/common/layout/download/download.component';
 import { saveAs } from 'file-saver';
@@ -53,15 +56,18 @@ export class ReportComponent {
     });
   }
 
-  reportLabel(report: ReportEnum): string{
+  reportLabel(report: ReportEnum): string {
     return reportLabel(report);
   }
 
   openDownloadModal(report: ReportEnum) {
+    let downloadTypes: DownloadTypeEnum[] = getAllDownloadEnumKeys();
+    downloadTypes = downloadTypes.filter((obj) => obj !== DownloadTypeEnum.Txt);
+
     this.dialogService
       .open(DownloadComponent, {
         context: {
-          modalData: null,
+          modalData: downloadTypes,
         },
       })
       .onClose.subscribe((data) => {

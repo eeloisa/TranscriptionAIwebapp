@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
-import { DownloadTypeEnum } from '../../enums/download-type.enum';
+import {
+  DownloadTypeEnum,
+  getAllDownloadEnumKeys,
+} from '../../enums/download-type.enum';
 
 @Component({
   selector: 'app-download',
@@ -11,15 +14,10 @@ export class DownloadComponent implements OnInit {
   @Input() modalData: any = null;
   message = 'Selecione formato de Arquivo:';
 
-  downloadTypes: DownloadTypeEnum[];
+  downloadTypes: DownloadTypeEnum[] = getAllDownloadEnumKeys();
   downloadTypeSelected: DownloadTypeEnum;
 
-  constructor(protected ref: NbDialogRef<DownloadComponent>) {
-    this.downloadTypes = <DownloadTypeEnum[]>Object.values(DownloadTypeEnum);
-    this.downloadTypes = this.downloadTypes.splice(
-      this.downloadTypes.length / 2
-    );
-  }
+  constructor(protected ref: NbDialogRef<DownloadComponent>) {}
 
   ngOnInit(): void {
     if (this.modalData != null) {
