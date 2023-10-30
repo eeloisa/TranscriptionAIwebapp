@@ -18,7 +18,10 @@ export class AppComponent implements OnInit {
 
   params: Parameter[] = [];
 
-  styles: string[] = ["default", "dark", "custom"];
+  styles: string[] = ['default', 'dark', 'custom'];
+
+  logoUrl: string = '';
+  backgroundUrl: string = '';
 
   constructor(
     private authService: AuthService,
@@ -39,12 +42,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.parameterService.getList().subscribe((r) => {
-      this.setStyleColor(getParamValue(r, "style-base-name"));
+      this.setStyleColor(getParamValue(r, 'style-base-name'));
+      this.logoUrl = getParamValue(r, 'style-base-logo');
+
+      this.backgroundUrl = 'url("' + this.logoUrl + '")';
     });
   }
 
   setStyleColor(style: string) {
-    if(this.styles.includes(style)){
+    if (this.styles.includes(style)) {
       this.themeService.changeTheme(style);
       return;
     }

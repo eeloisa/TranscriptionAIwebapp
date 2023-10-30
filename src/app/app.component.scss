@@ -22,8 +22,20 @@
   animation: spin 1s linear infinite;
 }
 
-.app-title{
+.app-title {
   margin-left: 15px;
+}
+
+.logo {
+  height: 100%;
+  width: 50%;
+  margin-left: 20px;
+}
+
+.logo .img {
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 100%;
 }
 
 @-webkit-keyframes spin {
