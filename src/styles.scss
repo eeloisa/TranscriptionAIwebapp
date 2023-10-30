@@ -185,7 +185,11 @@ nb-menu .menu-item a:hover, nb-menu .menu-item a:hover .menu-icon {
 }
 
 nb-menu .menu-item a.active, nb-menu .menu-item a:hover {
-  border-right: gray 5px solid;
+  border-right: var(--color-basic-800) 5px solid;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  color: var(--color-basic-1200) !important;
 }
 
 @include nb-install-component() {

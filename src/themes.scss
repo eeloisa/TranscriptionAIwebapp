@@ -3,20 +3,18 @@
 @use '@nebular/theme/styles/themes/default';
 @use '@nebular/theme/styles/themes/dark';
 
-$nb-themes: nb-register-theme(
-  (
-    color-basic-100: #ffffff,
-    color-basic-200: #f3f7f5,
-    color-basic-300: #e3eee8,
-    color-basic-400: #b9d3c4,
-    color-basic-500: #bcdbc9,
-    color-basic-600: #90c2a6,
-    color-basic-700: #4b9f70,
-    color-basic-800: #01652d,
-    color-basic-900: #105c31,
-    color-basic-1000: #163a26,
-    color-basic-1100: #122f1f,
-  ),
-  custom,
-  default
-);
+$nb-themes: nb-register-theme((
+      color-basic-100: #ffffff,
+      color-basic-200: #f7f9fc,
+      color-basic-300: #edf1f7,
+      color-basic-400: #b9d3c4,
+      color-basic-500: #bcdbc9,
+      color-basic-600: #90c2a6,
+      color-basic-700: #4b9f70,
+      color-basic-800: #01652d,
+      color-basic-900: #105c31,
+      color-basic-1000: #163a26,
+      color-basic-1100: #0b1711
+    ),
+    custom,
+    default);
