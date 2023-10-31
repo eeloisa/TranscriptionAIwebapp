@@ -96,9 +96,6 @@ export class GroupMediaComponent {
           //ERROR
           return;
         }
-
-        console.info(data);
-
         this.groupMedia = data;
       });
     }
