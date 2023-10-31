@@ -67,12 +67,14 @@ export class BlacklistWordsComponent {
 
   onRemove(obj: Blacklist) {
     this.dialogService.open(ConfirmComponent).onClose.subscribe((confirm) => {
-      if (obj.id != null && obj.id != 0) {
-        this.service.delete(obj.id).subscribe((res) => {
-          this.listAll();
-        });
-      } else {
-        this.dataList = this.dataList.filter((d) => d != obj);
+      if (confirm) {
+        if (obj.id != null && obj.id != 0) {
+          this.service.delete(obj.id).subscribe((res) => {
+            this.listAll();
+          });
+        } else {
+          this.dataList = this.dataList.filter((d) => d != obj);
+        }
       }
     });
   }
