@@ -30,6 +30,7 @@ import { Parameter } from '../../parameter/parameter.model';
 import { ParameterService } from '../../parameter/parameter.service';
 import { UserParameterService } from '../user-parameter.service';
 import { UserParameter } from '../user-parameter.model';
+import { isStrongPassword } from 'src/app/common/utils/utils';
 
 @Component({
   templateUrl: './user.component.html',
@@ -106,6 +107,10 @@ export class UserComponent {
     return this.password == this.confirmPassword;
   }
 
+  isStrongPassword(): boolean {
+    return this.password == null || this.password == "" || isStrongPassword(this.password);
+  }
+
   toSave() {
     let accountPayload = new AccountPayload();
 
@@ -148,6 +153,7 @@ export class UserComponent {
       return (
         this.password != null &&
         this.password.trim() != '' &&
+        this.isStrongPassword() &&
         this.confirmedPassword()
       );
     }

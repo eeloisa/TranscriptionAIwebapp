@@ -35,6 +35,8 @@
                 name="confirmPassword" #name="ngModel" [(ngModel)]="confirmPassword"
                 [ngClass]="confirmedPassword() ? '' : 'confirmPasswordError' " />
             </div>
+
+            <div class="strongPassword not-valid" *ngIf="!isStrongPassword()">A senha deve possuir ao menos uma letra maiuscula, um caracter especial e 6 digitos</div>
           </div>
         </div>
       </div>
