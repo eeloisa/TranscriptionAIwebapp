@@ -10,6 +10,6 @@ export function mediaTypeLabel(value: MediaTypeEnum): string {
     case 2:
       return 'Áudio';
     default:
-      return '-';
+      return '';
   }
 }

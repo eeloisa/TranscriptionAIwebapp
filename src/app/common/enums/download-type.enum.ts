@@ -5,7 +5,9 @@ export enum DownloadTypeEnum {
   Odt = 4,
   Ods = 5,
   Str = 6,
-  Txt = 7
+  Txt = 7,
+  PDF = 8,
+  Xlsx = 9
 }
 
 export function getAllDownloadEnumKeys(): DownloadTypeEnum[]{

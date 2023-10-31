@@ -19,6 +19,7 @@ export class Media {
   order: number;
   url: string;
   mediaType: MediaTypeEnum;
+  size: number;
   file?: File;
   hashCode?: string;
   registrationDate?: string;

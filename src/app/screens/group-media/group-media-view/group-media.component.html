@@ -51,6 +51,20 @@
       </nb-card>
 
       <mat-table mat-tabl *ngIf="listData()?.length" [dataSource]="listData()" class="table-scroll mat-elevation-z8">
+
+        <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef class="select-column">
+            <nb-checkbox (change)="$event ? toggleAllRows() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"></nb-checkbox>
+          </mat-header-cell>
+
+          <mat-cell *matCellDef="let element" class="select-column">
+            <nb-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(element) : null"
+              [checked]="selection.isSelected(element)">
+            </nb-checkbox>
+          </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="title">
           <mat-header-cell mat-header-cell *matHeaderCellDef>
             Nome
@@ -66,6 +80,15 @@
           </mat-header-cell>
           <mat-cell mat-cell *matCellDef="let element">
             {{ mediaTypeLabel(element.mediaType) }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="size">
+          <mat-header-cell mat-header-cell *matHeaderCellDef>
+            Tamanho
+          </mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let element">
+            {{ getSize(element.size) }}
           </mat-cell>
         </ng-container>
 
@@ -93,6 +116,15 @@
           </mat-header-cell>
           <mat-cell mat-cell *matCellDef="let element">
             {{ getFormatedDate(element.registrationDate) }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="user">
+          <mat-header-cell mat-header-cell *matHeaderCellDef>
+            Usuário
+          </mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let element">
+            {{ element.includeUserId }}
           </mat-cell>
         </ng-container>
 
@@ -126,6 +158,10 @@
 
       <div *ngIf="isQuotaExceeded()" class="credit-risk center">
         <span>Limite de Cota para transcrições no mês excedido!</span>
+      </div>
+
+      <div class="buttons">
+        <button nbButton type="button" status="danger" [disabled]="!selection.hasValue()" (click)="deleteSelection()">Deletar</button>
       </div>
 
       <div class="buttons center">

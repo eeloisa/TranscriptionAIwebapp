@@ -13,6 +13,6 @@ export function reportLabel(value: ReportEnum): string {
     case 3:
       return 'Ultimos Logins';
     default:
-      return '-';
+      return '';
   }
 }

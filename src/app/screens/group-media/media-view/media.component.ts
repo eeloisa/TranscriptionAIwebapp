@@ -37,6 +37,7 @@ export class MediaComponent implements OnInit {
 
       this.media.file = file;
       this.media.url = URL.createObjectURL(file);
+      this.media.size = file.size;
 
       this.media.mediaType = file.type
       .trim()

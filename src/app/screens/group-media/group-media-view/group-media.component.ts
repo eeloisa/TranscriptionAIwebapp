@@ -32,10 +32,12 @@ import {
 import { environment } from 'src/environments/environment';
 import { identifyMediaFormat } from 'src/app/common/enums/media-format.enum';
 import * as moment from 'moment';
-import { forEach } from 'lodash';
+import { forEach, remove, size } from 'lodash';
 import { getDateMask } from 'src/app/common/formatter/date-mask.formatter';
 import { AuthService } from 'src/app/guard/auth.service';
 import { Account } from '../../user/account.model';
+import { formatSizeUnits } from 'src/app/common/utils/utils';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-group-media',
@@ -55,11 +57,14 @@ export class GroupMediaComponent {
   filterSelected = this.filters[0];
 
   displayedColumns: string[] = [
+    'select',
     'title',
     'mediaType',
+    'size',
     'order',
     'transcriptionStatus',
     'registrationDate',
+    'user',
     'actions',
   ];
 
@@ -69,6 +74,8 @@ export class GroupMediaComponent {
   newMidias: Media[] = [];
 
   account: Account;
+
+  selection: SelectionModel<Media>;
 
   constructor(
     private service: GroupMediaService,
@@ -90,9 +97,14 @@ export class GroupMediaComponent {
           return;
         }
 
+        console.info(data);
+
         this.groupMedia = data;
       });
     }
+
+    const initialSelection = [];
+    this.selection = new SelectionModel<Media>(true, initialSelection);
 
     this.accountService
       .getById(this.authService.usuarioLogado.code)
@@ -118,6 +130,22 @@ export class GroupMediaComponent {
     return this.filterSelected == this.filters[1];
   }
 
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.listData()?.length;
+    return numSelected == numRows;
+  }
+
+  toggleAllRows() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.listData()?.forEach((row) => this.selection.select(row));
+  }
+
+  getSize(size: number): string {
+    return formatSizeUnits(size);
+  }
+
   listData(): Media[] {
     if (this.filterData == null || this.filterData == '') {
       return this.groupMedia.medias;
@@ -125,7 +153,7 @@ export class GroupMediaComponent {
 
     if (this.filterSelected == this.filters[0]) {
       //FILTER MEDIA NAME
-      return this.groupMedia.medias.filter((data) =>
+      return this.groupMedia.medias?.filter((data) =>
         data.title
           .toLocaleLowerCase()
           .trim()
@@ -135,13 +163,16 @@ export class GroupMediaComponent {
 
     if (this.filterSelected == this.filters[1]) {
       //FILTER MEDIA DATE
-      return this.groupMedia.medias.filter((data) => {
+      return this.groupMedia.medias?.filter((data) => {
         return moment(data.registrationDate).isSameOrAfter(this.filterData);
       });
     }
   }
 
   getFormatedDate(date: string): string {
+    if (date == null) {
+      return;
+    }
     return moment(date).format('DD/MM/YYYY  HH:mm:ss');
   }
 
@@ -181,9 +212,9 @@ export class GroupMediaComponent {
 
       this.setupPayload();
 
-      this.newMidias = this.groupMedia.medias.filter((m) => m.file != null);
+      this.newMidias = this.groupMedia.medias?.filter((m) => m.file != null);
       if (this.newMidias.length == 0) {
-        this.postGroupMedia();
+        this.saveGroupMedia();
         return;
       }
 
@@ -192,7 +223,7 @@ export class GroupMediaComponent {
           (m) => m.hashCode == media.hashCode
         );
 
-        this.postFile(mediaPayload, media.file);
+        this.postFileRepo(mediaPayload, media.file);
       });
     } catch (event: any) {
       this.changeLoading(false);
@@ -244,7 +275,7 @@ export class GroupMediaComponent {
     });
   }
 
-  private postFile(media: MediaPayload, file: File) {
+  private postFileRepo(media: MediaPayload, file: File) {
     const storageRef = ref(
       this.storage,
       media.subFolderBucket + '/' + media.fileNameBucket
@@ -275,7 +306,7 @@ export class GroupMediaComponent {
       this.uploadCompleted++;
 
       if (this.newMidias.length == this.uploadCompleted) {
-        this.postGroupMedia();
+        this.saveGroupMedia();
       }
     });
   }
@@ -284,7 +315,7 @@ export class GroupMediaComponent {
     this.loadingService.isLoadingEmitter.emit(active);
   }
 
-  private postGroupMedia() {
+  private saveGroupMedia() {
     this.service.save(this.groupMediaPayload).subscribe((res) => {
       this.router.navigate(['/group-media-list']);
     });
@@ -302,8 +333,12 @@ export class GroupMediaComponent {
     });
   }
 
-  private remove(obj: Media) {
+  private remove(obj: Media, preservSelection?: boolean) {
     this.groupMedia.medias = this.groupMedia.medias.filter((v) => v != obj);
+
+    if (!preservSelection) {
+      this.selection.clear();
+    }
   }
 
   isFormDisabled(): boolean {
@@ -316,7 +351,39 @@ export class GroupMediaComponent {
     );
   }
 
-  isQuotaExceeded(): boolean{
+  isQuotaExceeded(): boolean {
     return this.account?.userCotaAvailable <= 0;
+  }
+
+  deleteSelection() {
+    this.dialogService.open(ConfirmComponent).onClose.subscribe((confirm) => {
+      if (confirm) {
+        let selectedMediasId: number[] = [];
+
+        this.selection.selected.forEach((m) => {
+          if (m.id != null) {
+            selectedMediasId.push(m.id);
+          }
+        });
+
+        if (selectedMediasId?.length > 0) {
+          this.service
+            .deleteSelection(this.groupMedia.id, selectedMediasId)
+            .subscribe((res) => {
+              this.removeAllSelected();
+            });
+        } else {
+          this.removeAllSelected();
+        }
+      }
+    });
+  }
+
+  private removeAllSelected() {
+    this.selection.selected.forEach((selected) => {
+      this.remove(selected, true);
+    });
+
+    this.selection.clear();
   }
 }

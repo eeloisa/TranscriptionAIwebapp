@@ -23,9 +23,6 @@ import {
   NbDialogModule,
   NbSelectModule,
   NbCheckboxModule,
-  NbDatepicker,
-  NbDatepickerModule,
-  NbTimepickerModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
@@ -69,7 +66,6 @@ import { AuditComponent } from './screens/audit/audit.component';
 import { UserListComponent } from './screens/user/user-list/user-list.component';
 import { AuthService } from './guard/auth.service';
 import { CookieStoreService } from './common/services/cookie-auth-store.service';
-import { AuthGuard } from './guard/auth.guard';
 import { BlacklistWordsComponent } from './screens/blacklist-words/blacklist-words.component';
 import { InputMaskModule } from '@ngneat/input-mask';
 import { DownloadComponent } from './common/layout/download/download.component';
@@ -151,7 +147,7 @@ import { DownloadComponent } from './common/layout/download/download.component';
       useClass: HttpInterceptorService,
       multi: true,
     },
-    { provide: DEFAULT_TIMEOUT, useValue: 10000 }
+    { provide: DEFAULT_TIMEOUT, useValue: 10000 },
   ],
   bootstrap: [AppComponent],
 })

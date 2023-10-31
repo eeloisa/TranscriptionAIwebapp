@@ -16,6 +16,6 @@ export function transcriptionStatusLabel(value: TranscriptionStatusEnum): string
     case 4:
       return 'Erro';
     default:
-      return '-';
+      return '';
   }
 }

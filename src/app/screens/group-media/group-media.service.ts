@@ -27,6 +27,10 @@ export class GroupMediaService {
     return this.http.delete(this.BASE_URL + groupMediaId);
   }
 
+  deleteSelection(groupMediaId: number, selectedMediasId: number[]): Observable<any> {
+    return this.http.post(this.BASE_URL + "medias/batch/" + groupMediaId, selectedMediasId);
+  }
+
   save(groupMedia: GroupMediaPayload): Observable<any> {
     return this.saveGroupMedia(groupMedia);
     //return of(this.postMock(groupMedia));
