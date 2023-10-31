@@ -8,7 +8,6 @@ import * as _ from 'lodash';
 import { ConfirmComponent } from 'src/app/common/layout/confirm/confirm.component';
 import { NbDialogService } from '@nebular/theme';
 import { GroupMedia } from '../../group-media/group-media.model';
-import { GroupMediaService } from '../../group-media/group-media.service';
 import { TranscriptionService } from '../transcription.service';
 
 @Component({

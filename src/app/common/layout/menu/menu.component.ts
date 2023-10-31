@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NbMenuItem } from '@nebular/theme';
-import { forEach } from 'lodash';
 import { AuthService } from 'src/app/guard/auth.service';
 
 @Component({

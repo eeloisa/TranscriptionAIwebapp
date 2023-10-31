@@ -39,12 +39,9 @@ export class MediaComponent implements OnInit {
       this.media.url = URL.createObjectURL(file);
       this.media.size = file.size;
 
-      this.media.mediaType = file.type
-      .trim()
-      .toLowerCase()
-      .includes('audio')
-      ? MediaTypeEnum.Audio
-      : MediaTypeEnum.Video;
+      this.media.mediaType = file.type.trim().toLowerCase().includes('audio')
+        ? MediaTypeEnum.Audio
+        : MediaTypeEnum.Video;
 
       this.fileName = file.name;
     } else {
@@ -83,5 +80,4 @@ export class MediaComponent implements OnInit {
   isAudio() {
     return this.media.mediaType == MediaTypeEnum.Audio;
   }
-
 }

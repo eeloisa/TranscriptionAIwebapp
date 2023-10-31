@@ -1,5 +1,4 @@
 import { AuthService } from 'src/app/guard/auth.service';
-import { environment } from 'src/environments/environment';
 import { Component } from '@angular/core';
 import { Account } from '../account.model';
 import { AccountService } from '../../../common/services/account.service';
@@ -11,7 +10,6 @@ import {
   transcriptionStatusLabel,
 } from 'src/app/common/enums/transcription-status.enum';
 import { ConfirmComponent } from 'src/app/common/layout/confirm/confirm.component';
-import { GroupMedia } from '../../group-media/group-media.model';
 
 @Component({
   selector: 'app-user-list',
@@ -82,7 +80,7 @@ export class UserListComponent {
     );
   }
 
-  isDeletable(obj: Account){
+  isDeletable(obj: Account) {
     return obj.accountId != this.authService.usuarioLogado.code;
   }
 }

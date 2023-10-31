@@ -1,33 +1,15 @@
-import { Login } from './../../../common/model/login.model';
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
-import {
-  ref,
-  uploadBytesResumable,
-  UploadTaskSnapshot,
-  StorageError,
-} from 'firebase/storage';
-import { identifyMediaFormat } from 'src/app/common/enums/media-format.enum';
 import {
   MediaTypeEnum,
   mediaTypeLabel,
 } from 'src/app/common/enums/media-type.enum';
-import {
-  TranscriptionStatusEnum,
-  transcriptionStatusLabel,
-} from 'src/app/common/enums/transcription-status.enum';
 import { ConfirmComponent } from 'src/app/common/layout/confirm/confirm.component';
 import { AccountPayload } from 'src/app/common/payload/account.payload';
-import { MediaPayload } from 'src/app/common/payload/group-media.payload';
-import { LoadingService } from 'src/app/common/services/loading.service';
-import { environment } from 'src/environments/environment';
 import { Media } from '../../group-media/group-media.model';
-import { MediaComponent } from '../../group-media/media-view/media.component';
-import { Account, Profile, Role } from '../account.model';
+import { Account, Profile } from '../account.model';
 import { AccountService } from '../../../common/services/account.service';
-import { Parameter } from '../../parameter/parameter.model';
-import { ParameterService } from '../../parameter/parameter.service';
 import { UserParameterService } from '../user-parameter.service';
 import { UserParameter } from '../user-parameter.model';
 import { isStrongPassword } from 'src/app/common/utils/utils';
@@ -42,12 +24,7 @@ export class UserComponent {
 
   profiles: Profile[];
 
-  displayedParamColumns: string[] = [
-    'name',
-    'description',
-    'value',
-    'actions',
-  ];
+  displayedParamColumns: string[] = ['name', 'description', 'value', 'actions'];
 
   password: string = null;
   confirmPassword: string = null;
@@ -108,7 +85,11 @@ export class UserComponent {
   }
 
   isStrongPassword(): boolean {
-    return this.password == null || this.password == "" || isStrongPassword(this.password);
+    return (
+      this.password == null ||
+      this.password == '' ||
+      isStrongPassword(this.password)
+    );
   }
 
   toSave() {
@@ -126,7 +107,11 @@ export class UserComponent {
   }
 
   getRoles(): any[] {
-    if (this.account.profileId == null || this.account.profileId == '' || this.profiles == null) {
+    if (
+      this.account.profileId == null ||
+      this.account.profileId == '' ||
+      this.profiles == null
+    ) {
       return [];
     }
 
@@ -175,7 +160,7 @@ export class UserComponent {
       });
   }
 
-  isParamSaveDisabled(parameter: UserParameter): boolean{
-    return parameter.value == null || parameter.value.trim() == "";
+  isParamSaveDisabled(parameter: UserParameter): boolean {
+    return parameter.value == null || parameter.value.trim() == '';
   }
 }

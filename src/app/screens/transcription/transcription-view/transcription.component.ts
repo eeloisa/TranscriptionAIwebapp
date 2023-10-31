@@ -9,10 +9,7 @@ import {
   Speaker,
 } from '../../group-media/group-media.model';
 import { TranscriptionService } from '../transcription.service';
-import {
-  MediaTypeEnum,
-  mediaTypeLabel,
-} from 'src/app/common/enums/media-type.enum';
+import { MediaTypeEnum } from 'src/app/common/enums/media-type.enum';
 
 import { NbDialogService } from '@nebular/theme';
 import { SpeakerViewComponent } from '../speaker-view/speaker-view.component';
@@ -54,7 +51,6 @@ export class TranscriptionComponent {
 
   constructor(
     private service: TranscriptionService,
-    private router: Router,
     private route: ActivatedRoute,
     private dialogService: NbDialogService
   ) {
@@ -143,12 +139,17 @@ export class TranscriptionComponent {
     this.service
       .download(downloadPayload, this.groupMediaId, downloadType)
       .subscribe((blob) => {
-        saveAs(blob, 'transcription-' + this.groupMedia.title + '.' + DownloadTypeEnum[downloadType].toLowerCase());
+        saveAs(
+          blob,
+          'transcription-' +
+            this.groupMedia.title +
+            '.' +
+            DownloadTypeEnum[downloadType].toLowerCase()
+        );
       });
   }
 
   openDownloadModal() {
-
     let downloadTypes: DownloadTypeEnum[] = [];
     downloadTypes.push(DownloadTypeEnum.Doc);
     downloadTypes.push(DownloadTypeEnum.Odt);

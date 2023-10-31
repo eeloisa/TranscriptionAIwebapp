@@ -1,5 +1,5 @@
 import { AccountService } from './../../../common/services/account.service';
-import { ChangeDetectionStrategy, Component, NgZone } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { GroupMediaService } from '../group-media.service';
 import { GroupMedia, Media } from '../group-media.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,7 +32,6 @@ import {
 import { environment } from 'src/environments/environment';
 import { identifyMediaFormat } from 'src/app/common/enums/media-format.enum';
 import * as moment from 'moment';
-import { forEach, remove, size } from 'lodash';
 import { getDateMask } from 'src/app/common/formatter/date-mask.formatter';
 import { AuthService } from 'src/app/guard/auth.service';
 import { Account } from '../../user/account.model';

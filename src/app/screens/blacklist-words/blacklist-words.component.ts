@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import * as _ from 'lodash';
 import { ConfirmComponent } from 'src/app/common/layout/confirm/confirm.component';
@@ -22,7 +21,6 @@ export class BlacklistWordsComponent {
 
   constructor(
     private service: BlacklistService,
-    private router: Router,
     private dialogService: NbDialogService
   ) {
     this.listAll();

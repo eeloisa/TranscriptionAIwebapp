@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -27,8 +27,14 @@ export class GroupMediaService {
     return this.http.delete(this.BASE_URL + groupMediaId);
   }
 
-  deleteSelection(groupMediaId: number, selectedMediasId: number[]): Observable<any> {
-    return this.http.post(this.BASE_URL + "medias/batch/" + groupMediaId, selectedMediasId);
+  deleteSelection(
+    groupMediaId: number,
+    selectedMediasId: number[]
+  ): Observable<any> {
+    return this.http.post(
+      this.BASE_URL + 'medias/batch/' + groupMediaId,
+      selectedMediasId
+    );
   }
 
   save(groupMedia: GroupMediaPayload): Observable<any> {
