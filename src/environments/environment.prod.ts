@@ -14,10 +14,10 @@ export const environment = {
   APP_BRAINZ_DOMAIN: 'brainz.group',
 
   firebase: {
-    apiKey: '2ca3d0d8a8c88b89356ca408231a1c0c0f27ae27',
+    apiKey: '089c64ae818e542c9a759cd03c433a017708fffe',
     authDomain: 'googleapis.com',
-    projectId: 'poc-brito',
-    storageBucket: 'poc-brito.appspot.com',
-    messagingSenderId: '100909293207693021900',
+    projectId: 'reeducation-transcription',
+    storageBucket: 'reeducation-transcription.appspot.com',
+    messagingSenderId: '102113035191181172801',
   },
 };
