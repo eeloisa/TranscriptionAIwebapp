@@ -38,6 +38,7 @@ export class MediaComponent implements OnInit {
       this.media.file = file;
       this.media.url = URL.createObjectURL(file);
       this.media.size = file.size;
+      this.media.contentType = file.type;
 
       this.media.mediaType = file.type.trim().toLowerCase().includes('audio')
         ? MediaTypeEnum.Audio

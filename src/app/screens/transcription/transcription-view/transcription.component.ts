@@ -110,6 +110,7 @@ export class TranscriptionComponent {
     }
 
     player.nativeElement.src = this.media.url;
+    player.nativeElement.type = this.media.contentType;
     player.nativeElement.currentTime = dialogue.startTime;
     player.nativeElement.load();
 

@@ -61,14 +61,16 @@ table {
   max-height: 600px;
 }
 
-.mat-mdc-table, textarea {
+.mat-mdc-table,
+textarea {
   background-color: unset;
 }
 
 .mdc-data-table__header-cell,
 .mdc-data-table__pagination-total,
 .mdc-data-table__pagination-rows-per-page-label,
-.mdc-data-table__cell, textarea {
+.mdc-data-table__cell,
+textarea {
   color: unset;
 }
 
@@ -179,21 +181,67 @@ nb-layout-header nav {
   padding: unset;
 }
 
-.not-valid, .credit-risk {
+.not-valid,
+.credit-risk {
   color: rgb(255, 103, 103);
 }
 
-nb-menu .menu-item a.active, nb-menu .menu-item a.active .menu-icon,
-nb-menu .menu-item a:hover, nb-menu .menu-item a:hover .menu-icon {
+.row {
+  display: flex;
+  margin: 0 -0.5rem;
+}
+
+.col {
+  flex: 1 0 calc(50% - 1rem);
+  margin: 0 0.5rem;
+}
+
+nb-menu .menu-item a.active,
+nb-menu .menu-item a.active .menu-icon,
+nb-menu .menu-item a:hover,
+nb-menu .menu-item a:hover .menu-icon {
   color: unset;
 }
 
-nb-menu .menu-item a.active, nb-menu .menu-item a:hover {
+nb-menu .menu-item a.active,
+nb-menu .menu-item a:hover {
   border-right: var(--color-basic-600) 5px solid;
 }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+nb-layout-column {
+  overflow: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   color: var(--color-basic-1200) !important;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-basic-200);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-basic-600);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-basic-1000);
 }
 
 @include nb-install-component() {

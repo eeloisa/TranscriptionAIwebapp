@@ -1,10 +1,10 @@
-<nb-card>
-  <nb-card-body>
+<div class="row transcription-board">
+  <div class="col col-large">
 
-    <div class="transcription-board">
-      <div class="col-left">
+    <nb-card>
+      <nb-card-body>
+
         <div class="transcription-find center">
-
           <form (ngSubmit)="findText()" #form="ngForm">
             <div class="forms-inputs list-filter">
               <input type="text" nbInput placeholder="Filtrar por texto" name="filter-transcription" #name="ngModel"
@@ -14,11 +14,10 @@
               </button>
             </div>
           </form>
-
         </div>
         <div class="box transcription-dialogs">
-          <div class="center">
-            <label class="transcription-name">Transcrição: <span>{{groupMedia.title}}</span></label>
+          <div class="transcription-name center">
+            <label>Transcrição: <span>{{groupMedia.title}}</span></label>
           </div>
           <div class="box-body">
             <div *ngIf="dialogues.length">
@@ -37,6 +36,12 @@
           </div>
         </div>
 
+      </nb-card-body>
+    </nb-card>
+
+    <nb-card>
+      <nb-card-body>
+
         <div class="box transcription-speakers">
           <label>Oradores</label>
           <div class="box-body">
@@ -48,19 +53,24 @@
 
           </div>
         </div>
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col col-slim">
+    <div class="box transcription-media">
+      <div class="box-body center">
+
+        <video #videoPlayer id="videoPlayer" width="auto" height="100%" preload="auto" controls="controls"></video>
+
+        <audio #audioPlayer id="audioPlayer" controls="controls" preload="auto"></audio>
+
       </div>
+    </div>
 
-      <div class="col-right">
-        <div class="box transcription-media">
-          <div class="box-body center">
-
-            <video #videoPlayer id="videoPlayer" width="auto" height="100%" preload="auto" controls="controls"></video>
-
-            <audio #audioPlayer id="audioPlayer" controls="controls" preload="auto"></audio>
-
-          </div>
-        </div>
-
+    <nb-card>
+      <nb-card-body>
         <div class="box transcription-chat">
           <label>Chatbot IA</label>
           <div class="box-body">
@@ -68,7 +78,8 @@
             <div class="chat-user">
               <label>Pergunta:</label>
               <div class="box-in">
-                <textarea name="text-ask-chat" placeholder="Faça aqui a sua pergunta sobre a Transcrição para a IA" #name="ngModel" [(ngModel)]="textAskChat"></textarea>
+                <textarea name="text-ask-chat" placeholder="Faça aqui a sua pergunta sobre a Transcrição para a IA"
+                  #name="ngModel" [(ngModel)]="textAskChat"></textarea>
               </div>
             </div>
 
@@ -86,45 +97,60 @@
 
           </div>
         </div>
+      </nb-card-body>
+    </nb-card>
+
+  </div>
+</div>
+
+<div class="row transcription-extras">
+
+  <nb-card class="col col-25">
+    <nb-card-body>
+      <div class="box transcription-resume">
+        <label>Resumo</label>
+        <div class="box-body">
+          {{transcription.summary}}
+        </div>
       </div>
-    </div>
+    </nb-card-body>
+  </nb-card>
 
-  </nb-card-body>
-
-  <nb-card-footer>
-
-    <div class="box transcription-resume">
-      <label>Resumo</label>
-      <div class="box-body">
-        {{transcription.summary}}
+  <nb-card  class="col col-25">
+    <nb-card-body>
+      <div class="box transcription-subject">
+        <label>Assuntos</label>
+        <div class="box-body">
+          {{transcription.subject}}
+        </div>
       </div>
-    </div>
+    </nb-card-body>
+  </nb-card>
 
-    <div class="box transcription-subject">
-      <label>Assuntos</label>
-      <div class="box-body">
-        {{transcription.subject}}
+  <nb-card  class="col col-25">
+    <nb-card-body>
+      <div class="box transcription-keyterms">
+        <label>Termos</label>
+        <div class="box-body">
+          {{transcription.categories}}
+        </div>
       </div>
-    </div>
+    </nb-card-body>
+  </nb-card>
 
-    <div class="box transcription-keyterms">
-      <label>Termos</label>
-      <div class="box-body">
-        {{transcription.categories}}
+  <nb-card  class="col col-25">
+    <nb-card-body>
+      <div class="box transcription-entities">
+        <label>Entidades</label>
+        <div class="box-body">
+          {{transcription.brazilianEntities}}
+        </div>
       </div>
-    </div>
+    </nb-card-body>
+  </nb-card>
 
-    <div class="box transcription-entities">
-      <label>Entidades</label>
-      <div class="box-body">
-        {{transcription.brazilianEntities}}
-      </div>
-    </div>
+</div>
 
-    <div class="buttons center">
-      <button type="button" nbButton status="basic" (click)="openDownloadModal()">Download</button>
-    </div>
-
-  </nb-card-footer>
-
-</nb-card>
+<div class="buttons center">
+  <button type="button" nbButton status="success" (click)="openDownloadModal()">Download</button>
+</div>

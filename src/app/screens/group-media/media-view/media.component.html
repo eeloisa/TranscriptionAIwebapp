@@ -26,19 +26,21 @@
         </div>
 
         <div class="center">
-          <video *ngIf="(!isAudio()) && media.url" width="320" height="auto" preload="auto" controls="controls" autoplay="autoplay">
-            <source src="{{media.url}}" type="{{media.type}}"/>
+          <video *ngIf="(!isAudio()) && media.url" width="320" height="auto" preload="auto" controls="controls"
+            autoplay="autoplay">
+            <source src="{{media.url}}" type="{{media.contentType}}" />
           </video>
 
           <audio *ngIf="isAudio() && media.url" controls="controls" autoplay="autoplay" preload="auto">
-            <source src="{{media.url}}" type="{{media.type}}">
+            <source src="{{media.url}}" type="{{media.contentType}}">
           </audio>
         </div>
 
       </div>
 
       <button class="left-element" type="button" nbButton status="basic" (click)="cancel()">Voltar</button>
-      <button *ngIf="!isViewMode()" type="submit" [disabled]="isFormDisabled()" nbButton status="primary">Adicionar</button>
+      <button *ngIf="!isViewMode()" type="submit" [disabled]="isFormDisabled()" nbButton
+        status="primary">Adicionar</button>
 
     </form>
 

@@ -20,6 +20,7 @@ export class Media {
   url: string;
   mediaType: MediaTypeEnum;
   size: number;
+  contentType: string;
   file?: File;
   hashCode?: string;
   registrationDate?: string;

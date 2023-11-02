@@ -16,7 +16,7 @@ export class MediaPayload {
   hashCode?: string;
   title: string;
   fileName: string;
-  fileNameBucket: String;
+  fileNameBucket: string;
   subFolderBucket: string;
   bucketName: string;
   size: number;
