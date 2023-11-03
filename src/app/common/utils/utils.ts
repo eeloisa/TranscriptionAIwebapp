@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { Parameter } from 'src/app/screens/parameter/parameter.model';
 
 export function getParamValue(params: Parameter[], code: string): string {
@@ -49,4 +50,11 @@ export function isStrongPassword(password): boolean {
   if (auxEspecial == 0) return false;
 
   return true;
+}
+
+export function getFormatedDate(date: string): string {
+  if (date == null) {
+    return;
+  }
+  return moment(date).format('DD/MM/YYYY HH:mm:ss');
 }

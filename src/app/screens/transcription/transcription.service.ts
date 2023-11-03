@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { GroupMedia } from '../group-media/group-media.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Chat } from 'src/app/common/model/chat.model';
+import { ChatPayload } from 'src/app/common/payload/chat.payload';
 import { DownloadTypeEnum } from 'src/app/common/enums/download-type.enum';
 
 @Injectable({
@@ -60,14 +60,14 @@ export class TranscriptionService {
     );
   }
 
-  chatAI(payload: Chat): Observable<Chat> {
+  chatAI(payload: ChatPayload): Observable<ChatPayload> {
     const httpOptions = {
       headers: new HttpHeaders({
         timeout: 0,
       }),
     };
 
-    return this.http.post<Chat>(
+    return this.http.post<ChatPayload>(
       this.BASE_URL + 'chat-ai',
       payload,
       httpOptions

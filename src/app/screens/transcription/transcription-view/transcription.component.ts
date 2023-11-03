@@ -1,6 +1,7 @@
+import { AuthService } from './../../../guard/auth.service';
 import { DownloadPayload } from '../../../common/payload/group-media.payload';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   GroupMedia,
   Media,
@@ -16,9 +17,11 @@ import { SpeakerViewComponent } from '../speaker-view/speaker-view.component';
 import { SpeakerPayload } from 'src/app/common/payload/group-media.payload';
 
 import { saveAs } from 'file-saver';
-import { Chat } from 'src/app/common/model/chat.model';
+import { ChatPayload } from 'src/app/common/payload/chat.payload';
 import { DownloadComponent } from 'src/app/common/layout/download/download.component';
 import { DownloadTypeEnum } from 'src/app/common/enums/download-type.enum';
+import { Chat } from '../chat.model';
+import { getFormatedDate } from 'src/app/common/utils/utils';
 
 @Component({
   selector: 'app-transcription',
@@ -41,7 +44,9 @@ export class TranscriptionComponent {
   firstDialogue: Dialogue;
 
   textAskChat: string = '';
-  textResponseChat: string = '';
+  messages: Chat[] = [];
+
+  userName: string = '';
 
   @ViewChild('videoPlayer')
   public videoPlayer: ElementRef;
@@ -52,9 +57,12 @@ export class TranscriptionComponent {
   constructor(
     private service: TranscriptionService,
     private route: ActivatedRoute,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private authService: AuthService
   ) {
     this.route.params.subscribe((params) => (this.groupMediaId = params['id']));
+
+    this.userName = authService.usuarioLogado.name;
 
     this.service.getByGroupMediaId(this.groupMediaId).subscribe((data) => {
       if (data == undefined) {
@@ -134,8 +142,8 @@ export class TranscriptionComponent {
 
   download(downloadType: DownloadTypeEnum) {
     const downloadPayload: DownloadPayload = new DownloadPayload();
-    downloadPayload.textQuestionIteration = this.textAskChat;
-    downloadPayload.textIteration = this.textResponseChat;
+    downloadPayload.textQuestionIteration = '';
+    downloadPayload.textIteration = this.messages.toString();
 
     this.service
       .download(downloadPayload, this.groupMediaId, downloadType)
@@ -170,14 +178,40 @@ export class TranscriptionComponent {
       });
   }
 
+  isAskDisabled(): boolean {
+    return this.textAskChat == null || this.textAskChat == '';
+  }
+
   toAsk() {
-    let chat: Chat = new Chat();
+    let chat: ChatPayload = new ChatPayload();
     chat.groupMediaId = this.groupMediaId;
     chat.question = this.textAskChat;
 
-    this.service.chatAI(chat).subscribe((v) => {
-      this.textResponseChat = v.response;
+    this.messages.push({
+      text: this.textAskChat,
+      date: this.getFormatedDate(new Date().toString()),
+      reply: true,
+      user: {
+        name: "IA",
+        avatar: 'assets/ia-icon-3.png',
+      },
     });
+
+    this.service.chatAI(chat).subscribe((v) => {
+      this.messages.push({
+        text: v.response,
+        date: this.getFormatedDate(new Date().toString()),
+        reply: false,
+        user: {
+          name: 'IA',
+          avatar: 'assets/ia-icon-3.png',
+        },
+      });
+    });
+  }
+
+  getFormatedDate(date: string): string {
+    return getFormatedDate(date);
   }
 
   editSpeaker(obj?: Speaker) {
@@ -206,10 +240,6 @@ export class TranscriptionComponent {
           });
         }
       });
-  }
-
-  isAskDisabled() {
-    return this.textAskChat == null || this.textAskChat.trim() == '';
   }
 
   findText() {

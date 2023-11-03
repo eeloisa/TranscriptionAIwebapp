@@ -23,6 +23,7 @@ import {
   NbDialogModule,
   NbSelectModule,
   NbCheckboxModule,
+  NbChatModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
@@ -121,7 +122,6 @@ import { DownloadComponent } from './common/layout/download/download.component';
     NbMenuModule.forRoot(),
     NbContextMenuModule,
     NbAuthModule,
-    NbStepperModule,
     NbTooltipModule,
     NbDialogModule.forRoot(),
     NbSelectModule,
@@ -129,11 +129,7 @@ import { DownloadComponent } from './common/layout/download/download.component';
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    MatCardModule,
-    MatToolbarModule,
     MatInputModule,
-    MatFormFieldModule,
-    MatProgressBarModule,
     MatListModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideStorage(() => getStorage()),

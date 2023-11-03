@@ -14,8 +14,8 @@
         </div>
 
         <div class="forms-inputs">
-          <label class="input-label">Login*: </label> <input type="text" [disabled]="isEdit()" nbInput placeholder="Login" name="accountLogin"
-            #name="ngModel" [(ngModel)]="account.accountLogin" />
+          <label class="input-label">Login*: </label> <input type="text" [disabled]="isEdit()" nbInput
+            placeholder="Login" name="accountLogin" #name="ngModel" [(ngModel)]="account.accountLogin" />
         </div>
 
         <div class="forms-inputs">
@@ -36,19 +36,24 @@
                 [ngClass]="confirmedPassword() ? '' : 'confirmPasswordError' " />
             </div>
 
-            <div class="strongPassword not-valid" *ngIf="!isStrongPassword()">A senha deve possuir ao menos uma letra maiuscula, um caracter especial e 6 digitos</div>
+            <div class="strongPassword not-valid" *ngIf="!isStrongPassword()">A senha deve possuir ao menos uma letra
+              maiuscula, um caracter especial e 6 digitos</div>
           </div>
         </div>
       </div>
 
       <div class="col-right">
 
-        <div *ngIf="getRoles().length" class="box account-roles">
-          <label class="input-label">Permissões: </label>
-          <div class="box-body">
-            <div *ngFor="let role of getRoles()" class="role">{{role.name}}</div>
-          </div>
-        </div>
+        <nb-card *ngIf="getRoles()?.length">
+          <nb-card-body class="account-roles">
+            <div class="box">
+              <label class="input-label">Permissões: </label>
+              <div class="box-body">
+                <div *ngFor="let role of getRoles()" class="role">{{role.name}}</div>
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
 
       </div>
 
@@ -56,12 +61,12 @@
 
         <div class="table-label">Parâmetros: </div>
 
-        <nb-card *ngIf="!account.params?.length" class="list-empty">
+        <nb-card *ngIf="!account?.params?.length" class="list-empty">
           <nb-card-header>
             Não foi encontrado nenhum Parâmetro!</nb-card-header>
         </nb-card>
 
-        <mat-table mat-tabl *ngIf="account.params?.length" [dataSource]="account.params"
+        <mat-table mat-tabl *ngIf="account?.params?.length" [dataSource]="account.params"
           class="table-scroll mat-elevation-z8">
           <ng-container matColumnDef="name">
             <mat-header-cell mat-header-cell *matHeaderCellDef>

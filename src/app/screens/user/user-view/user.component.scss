@@ -9,8 +9,11 @@
 
 .col-right {
   width: 40%;
-  position: absolute;
   margin-left: -5%;
+}
+
+.account-roles {
+  padding-right: 0px;
 }
 
 .box {
@@ -24,11 +27,9 @@
 .box-body {
   height: 100%;
   width: 100%;
-  border: solid 1px rgb(198, 198, 198);
   overflow: auto;
-  box-shadow: 5px 5px 10px rgb(182, 182, 182);
   margin-top: 5px;
-  padding: 10px;
+  padding: 5px 0px;
 }
 
 .confirmPassword {

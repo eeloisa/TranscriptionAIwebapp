@@ -35,7 +35,7 @@ import * as moment from 'moment';
 import { getDateMask } from 'src/app/common/formatter/date-mask.formatter';
 import { AuthService } from 'src/app/guard/auth.service';
 import { Account } from '../../user/account.model';
-import { formatSizeUnits } from 'src/app/common/utils/utils';
+import { formatSizeUnits, getFormatedDate } from 'src/app/common/utils/utils';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -166,10 +166,7 @@ export class GroupMediaComponent {
   }
 
   getFormatedDate(date: string): string {
-    if (date == null) {
-      return;
-    }
-    return moment(date).format('DD/MM/YYYY  HH:mm:ss');
+    return getFormatedDate(date);
   }
 
   mediaTypeLabel(value: MediaTypeEnum) {

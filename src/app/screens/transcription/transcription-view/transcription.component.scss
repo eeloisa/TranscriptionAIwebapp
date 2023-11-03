@@ -6,6 +6,11 @@
   margin-bottom: 30px;
 }
 
+nb-card-body {
+  overflow: unset;
+  padding: 5px;
+}
+
 label {
   font-weight: bold;
 }
@@ -35,8 +40,8 @@ label {
   height: 100%;
   width: 100%;
   overflow: auto;
-  // box-shadow: 5px 5px 10px rgb(182, 182, 182);
   margin-top: 5px;
+  padding: 10px;
 }
 
 .transcription-dialogs {
@@ -58,54 +63,59 @@ label {
   box-shadow: none;
 }
 
-.transcription-chat {
-  height: 468px;
+.transcription-chat nb-card-body {
+  padding: 0;
+}
+
+.transcription-chat nb-card-footer {
+  padding: 0 15px;
+}
+
+.transcription-chat .chat {
+  height: 344px;
   display: block;
+  margin-bottom: 0px;
+   overflow: auto;
 }
 
-.transcription-chat .box-body {
-  overflow: hidden;
-}
-
-.transcription-chat .box-body label {
+.transcription-chat .chat .box-body label {
   font-weight: normal;
 }
 
-.transcription-chat .box-in {
+.transcription-chat .chat .box-in {
   height: 100%;
   width: 100%;
   border: solid 1px rgb(198, 198, 198);
 }
 
-.chat-user {
+.transcription-chat .chat-user {
   padding: 15px;
   height: 100px;
 }
 
-.chat-user textarea {
+.transcription-chat .chat-user textarea {
   padding: 10px;
 }
 
-
-.chat-ia {
-  height: 260px;
-  padding: 15px;
-  margin-top: -20px;
-}
-
-.chat-ia .box-in {
+.transcription-chat .chat-ia .box-in {
   text-align: justify;
   padding: 10px;
-  //background-color: rgb(254, 254, 255);
-  overflow: auto;
   -webkit-user-modify: read-plaintext-only;
+  border: none;
 }
 
 .button-ask {
   margin-top: 15px;
 }
 
+.button-ask input {
+  width: 88%;
+  margin-right: 3px;
+  max-width: none;
+}
+
 .transcription-media .box-body {
+  padding: 0px;
   overflow: hidden;
   border: none;
   box-shadow: none;
@@ -121,7 +131,6 @@ label {
 
 .dialogue {
   display: block !important;
-  margin: 10px;
   margin-bottom: 15px;
   cursor: pointer;
 }
@@ -189,6 +198,83 @@ textarea {
   min-width: auto;
 }
 
+.message {
+  word-break: break-word;
+  white-space: pre-wrap;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.message-box {
+  flex: 1;
+  margin-left: 0.5rem;
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.message.reply {
+  flex-direction: row-reverse;
+}
+
+.message.reply .message-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+.message.reply .message-content {
+  align-items: flex-end;
+}
+
+.message-infos {
+  display: inline-block;
+  font-size: .875rem;
+  color: #8f9bb3;
+  margin-top: 0;
+}
+
+.message-avatar {
+  display: block;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #c5cee0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  line-height: 2.5rem;
+  font-size: .875rem;
+  color: #fff;
+}
+
+.message-text {
+  display: inline-block;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border-top-right-radius: 0;
+  background: #f7f9fc;
+  color: #222b45;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.message-reponse {
+  background: #36f;
+  color: #fff;
+  padding: 1rem;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0;
+}
+
 @media screen and (max-width: 1350px) {
 
   .box,
@@ -202,5 +288,9 @@ textarea {
     width: 100%;
     padding: 0px;
     margin-bottom: 0px;
+  }
+
+  .transcription-extras nb-card {
+    padding-bottom: 25px;
   }
 }

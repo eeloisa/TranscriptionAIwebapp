@@ -69,35 +69,56 @@
       </div>
     </div>
 
-    <nb-card>
+    <nb-card class="transcription-chat">
+      <nb-card-header>
+        <label>Chat IA:</label>
+      </nb-card-header>
       <nb-card-body>
-        <div class="box transcription-chat">
-          <label>Chatbot IA</label>
-          <div class="box-body">
+        <div class="box chat">
 
-            <div class="chat-user">
-              <label>Pergunta:</label>
-              <div class="box-in">
-                <textarea name="text-ask-chat" placeholder="Faça aqui a sua pergunta sobre a Transcrição para a IA"
-                  #name="ngModel" [(ngModel)]="textAskChat"></textarea>
+          <div class="chat-ia">
+
+            <div class="box-in">
+              <span *ngIf="messages.length == 0" class="center">Faça alguma pergunta para mim.</span>
+
+              <div *ngFor="let message of messages" class="col message reply" [ngClass]="{'reply': message.reply}">
+
+                <div *ngIf="message.user.avatar" class="message-avatar"
+                  style="background-image: url({{message.user.avatar}});"> </div>
+
+                <div class="message-box">
+                  <div class="message-content">
+                    <div class="message-infos">
+                      {{message.user.name}} {{message.date}}
+                    </div>
+                    <div class="message-text" [ngClass]="{'message-reponse': !message.reply}">{{message.text}}</div>
+                  </div>
+                </div>
+
               </div>
-            </div>
 
-            <div class="center button-ask">
-              <button [disabled]="isAskDisabled()" type="button" nbButton hero status="info"
-                (click)="toAsk()">Perguntar</button>
             </div>
-
-            <div class="chat-ia">
-              <label>Resposta:</label>
-              <div class="box-in">
-                {{textResponseChat}}
-              </div>
-            </div>
-
           </div>
+
         </div>
       </nb-card-body>
+
+      <nb-card-footer>
+        <div class="button-ask center">
+
+          <form (ngSubmit)="toAsk()" #form="ngForm">
+            <div class="forms-inputs list-filter">
+              <input type="text" nbInput placeholder="Faça aqui a sua pergunta sobre a Transcrição"
+                name="filter-transcription" #name="ngModel" [(ngModel)]="textAskChat" />
+              <button [disabled]="isAskDisabled()" type="submit" mat-mini-fab color="primary" nbTooltip="Filtrar"
+                class="action-filter">
+                <mat-icon>send</mat-icon>
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </nb-card-footer>
     </nb-card>
 
   </div>
@@ -116,7 +137,7 @@
     </nb-card-body>
   </nb-card>
 
-  <nb-card  class="col col-25">
+  <nb-card class="col col-25">
     <nb-card-body>
       <div class="box transcription-subject">
         <label>Assuntos</label>
@@ -127,7 +148,7 @@
     </nb-card-body>
   </nb-card>
 
-  <nb-card  class="col col-25">
+  <nb-card class="col col-25">
     <nb-card-body>
       <div class="box transcription-keyterms">
         <label>Termos</label>
@@ -138,7 +159,7 @@
     </nb-card-body>
   </nb-card>
 
-  <nb-card  class="col col-25">
+  <nb-card class="col col-25">
     <nb-card-body>
       <div class="box transcription-entities">
         <label>Entidades</label>
