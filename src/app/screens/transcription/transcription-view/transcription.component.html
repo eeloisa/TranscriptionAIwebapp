@@ -79,9 +79,27 @@
           <div class="chat-ia">
 
             <div class="box-in">
-              <span *ngIf="messages.length == 0" class="center">Faça alguma pergunta para mim.</span>
+              <div *ngIf="messages.length == 0" class="center">
 
-              <div *ngFor="let message of messages" class="col message reply" [ngClass]="{'reply': message.reply}">
+                <div class="col message">
+
+                  <div class="message-avatar" style="background-image: url({{iaAvatar}});"> </div>
+
+                  <div class="message-box">
+                    <div class="message-content">
+                      <div class="message-infos">
+                        {{iaName}}
+                      </div>
+                      <div class="message-text message-reponse">Faça alguma pergunta para mim.</div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+              <div *ngFor="let message of messages" class="col message" [ngClass]="{'reply': message.reply}">
 
                 <div *ngIf="message.user.avatar" class="message-avatar"
                   style="background-image: url({{message.user.avatar}});"> </div>

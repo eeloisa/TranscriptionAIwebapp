@@ -45,6 +45,8 @@ export class TranscriptionComponent {
 
   textAskChat: string = '';
   messages: Chat[] = [];
+  iaName: string = 'IA';
+  iaAvatar: string = 'assets/ia-icon-3.png';
 
   userName: string = '';
 
@@ -192,7 +194,7 @@ export class TranscriptionComponent {
       date: this.getFormatedDate(new Date().toString()),
       reply: true,
       user: {
-        name: "IA",
+        name: this.userName,
         avatar: '',
       },
     });
@@ -203,8 +205,8 @@ export class TranscriptionComponent {
         date: this.getFormatedDate(new Date().toString()),
         reply: false,
         user: {
-          name: 'IA',
-          avatar: 'assets/ia-icon-3.png',
+          name: this.iaName,
+          avatar: this.iaAvatar,
         },
       });
     });
