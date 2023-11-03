@@ -25,7 +25,7 @@ export enum MediaFormatEnum {
   NotIdentified = 999,
 }
 
-export function identifyMediaFormat(type: string) {
+export function identifyMediaFormat(type: string): MediaFormatEnum {
   if (type.toLowerCase().trim().includes('audio/wav'))
     return MediaFormatEnum.Wav;
 
@@ -56,9 +56,6 @@ export function identifyMediaFormat(type: string) {
   if (type.toLowerCase().trim().includes('audio/x-ms-wma'))
     return MediaFormatEnum.Wma;
 
-  if (type.toLowerCase().trim().includes('audio/x-aiff'))
-    return MediaFormatEnum.Aiff;
-
   //Video
   if (type.toLowerCase().trim().includes('video/mp4'))
     return MediaFormatEnum.Mp4Video;
@@ -69,13 +66,19 @@ export function identifyMediaFormat(type: string) {
   if (type.toLowerCase().trim().includes('video/x-m4v'))
     return MediaFormatEnum.M4v;
 
-  if (type.toLowerCase().trim().includes('video/x-msvideo'))
+  if (
+    type.toLowerCase().trim().includes('video/x-msvideo') ||
+    type.toLowerCase().trim().includes('video/avi')
+  )
     return MediaFormatEnum.Avi;
 
   if (type.toLowerCase().trim().includes('video/mpeg'))
     return MediaFormatEnum.Mpeg;
 
-  if (type.toLowerCase().trim().includes('video/quicktime'))
+  if (
+    type.toLowerCase().trim().includes('video/quicktime') ||
+    type.toLowerCase().trim().includes('video/mov')
+  )
     return MediaFormatEnum.Mov;
 
   if (type.toLowerCase().trim().includes('video/ogg'))
@@ -88,4 +91,31 @@ export function identifyMediaFormat(type: string) {
     return MediaFormatEnum.Wmv;
 
   return MediaFormatEnum.NotIdentified;
+}
+
+export function isPreview(type: string): boolean {
+  if (type.toLowerCase().trim().includes('audio/aac')) return false;
+
+  if (type.toLowerCase().trim().includes('audio/x-ms-wma')) return false;
+
+  if (type.toLowerCase().trim().includes('audio/x-aiff')) return false;
+
+  //Video
+  if (
+    type.toLowerCase().trim().includes('video/x-msvideo') ||
+    type.toLowerCase().trim().includes('video/avi')
+  )
+    return false;
+
+  if (
+    type.toLowerCase().trim().includes('video/quicktime') ||
+    type.toLowerCase().trim().includes('video/mov')
+  )
+    return false;
+
+  if (type.toLowerCase().trim().includes('video/mpeg')) return false;
+
+  if (type.toLowerCase().trim().includes('video/x-ms-wmv')) return false;
+
+  return true;
 }

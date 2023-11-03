@@ -25,15 +25,22 @@
           </mat-form-field>
         </div>
 
-        <div class="center">
-          <video *ngIf="(!isAudio()) && media.url" width="320" height="auto" preload="auto" controls="controls"
-            autoplay="autoplay">
-            <source src="{{media.url}}" type="{{media.contentType}}" />
-          </video>
+        <div class="player center">
 
-          <audio *ngIf="isAudio() && media.url" controls="controls" autoplay="autoplay" preload="auto">
-            <source src="{{media.url}}" type="{{media.contentType}}">
-          </audio>
+          <div class="no-preview" *ngIf="msgMidiaValidate != ''" [ngClass]="{'not-valid': isErrorMsg}">
+            {{msgMidiaValidate}}
+          </div>
+
+          <div class="preview" *ngIf="msgMidiaValidate == ''">
+            <video *ngIf="(!isAudio()) && media.url" width="320" height="auto" preload="auto" controls="controls"
+              autoplay="autoplay">
+              <source src="{{media.url}}" type="{{media.contentType}}" />
+            </video>
+
+            <audio *ngIf="isAudio() && media.url" controls="controls" autoplay="autoplay" preload="auto">
+              <source src="{{media.url}}" type="{{media.contentType}}">
+            </audio>
+          </div>
         </div>
 
       </div>
