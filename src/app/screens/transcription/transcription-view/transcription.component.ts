@@ -193,7 +193,7 @@ export class TranscriptionComponent {
       reply: true,
       user: {
         name: "IA",
-        avatar: 'assets/ia-icon-3.png',
+        avatar: '',
       },
     });
 
