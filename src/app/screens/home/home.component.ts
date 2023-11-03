@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   constructor(private router: Router) {
-    //this.router.navigate(['/group-media-list']);
+    this.router.navigate(['/group-media-list']);
   }
 
   ngOnInit(): void {}
