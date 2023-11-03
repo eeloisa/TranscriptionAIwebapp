@@ -204,6 +204,26 @@ textarea {
   margin-bottom: 1.5rem;
   display: flex;
   flex-direction: row;
+
+  animation: message 0.3s ease-out 0s forwards;
+  animation-delay: var(--delay);
+  --bgcolor: #d8d8d8;
+  --radius: 8px 8px 8px 0;
+}
+
+@keyframes message {
+  0% {
+    max-height: 100vmax;
+  }
+  80% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    max-height: 100vmax;
+    overflow: visible;
+    padding-top: 1rem;
+  }
 }
 
 .message-box {
