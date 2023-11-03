@@ -1,6 +1,6 @@
 import { AuthService } from './../../../guard/auth.service';
 import { DownloadPayload } from '../../../common/payload/group-media.payload';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   GroupMedia,
@@ -28,7 +28,7 @@ import { getFormatedDate } from 'src/app/common/utils/utils';
   templateUrl: './transcription.component.html',
   styleUrls: ['./transcription.component.scss'],
 })
-export class TranscriptionComponent {
+export class TranscriptionComponent implements AfterViewInit {
   groupMedia: GroupMedia = new GroupMedia();
   groupMediaId: number = null;
 
@@ -56,6 +56,9 @@ export class TranscriptionComponent {
   @ViewChild('audioPlayer')
   public audioPlayer: ElementRef;
 
+  @ViewChildren('messages') messagesElement: QueryList<any>;
+  @ViewChild('content') contentElement: ElementRef;
+
   constructor(
     private service: TranscriptionService,
     private route: ActivatedRoute,
@@ -79,6 +82,17 @@ export class TranscriptionComponent {
 
       this.playMedia(this.dialogues[0]);
     });
+  }
+
+  ngAfterViewInit() {
+    this.scrollToBottom();
+    this.messagesElement.changes.subscribe(this.scrollToBottom);
+  }
+
+  scrollToBottom = () => {
+    try {
+      this.contentElement.nativeElement.scrollTop = this.contentElement.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 
   getInfos(dialogue: Dialogue): string {
@@ -198,6 +212,8 @@ export class TranscriptionComponent {
         avatar: '',
       },
     });
+
+    this.textAskChat = "";
 
     this.service.chatAI(chat).subscribe((v) => {
       this.messages.push({
