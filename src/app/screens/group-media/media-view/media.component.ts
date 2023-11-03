@@ -32,6 +32,7 @@ export class MediaComponent implements OnInit {
   ngOnInit(): void {
     if (this.isViewMode()) {
       this.media = this.modalData;
+      this.isValidPreview(this.media.contentType);
     }
   }
 
