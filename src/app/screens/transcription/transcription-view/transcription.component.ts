@@ -1,6 +1,13 @@
 import { AuthService } from './../../../guard/auth.service';
 import { DownloadPayload } from '../../../common/payload/group-media.payload';
-import { AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   GroupMedia,
@@ -91,9 +98,10 @@ export class TranscriptionComponent implements AfterViewInit {
 
   scrollToBottom = () => {
     try {
-      this.contentElement.nativeElement.scrollTop = this.contentElement.nativeElement.scrollHeight;
+      this.contentElement.nativeElement.scrollTop =
+        this.contentElement.nativeElement.scrollHeight;
     } catch (err) {}
-  }
+  };
 
   getInfos(dialogue: Dialogue): string {
     const media = this.medias.find((m) => m.id == dialogue.mediaId);
@@ -159,7 +167,12 @@ export class TranscriptionComponent implements AfterViewInit {
   download(downloadType: DownloadTypeEnum) {
     const downloadPayload: DownloadPayload = new DownloadPayload();
     downloadPayload.textQuestionIteration = '';
-    downloadPayload.textIteration = this.messages.toString();
+    downloadPayload.textIteration = '';
+
+    this.messages.forEach((m) => {
+      downloadPayload.textIteration +=
+        m.user.name + ' às ' + getFormatedDate(m.date) + ': ' + m.text + ' - ';
+    });
 
     this.service
       .download(downloadPayload, this.groupMediaId, downloadType)
@@ -213,7 +226,7 @@ export class TranscriptionComponent implements AfterViewInit {
       },
     });
 
-    this.textAskChat = "";
+    this.textAskChat = '';
 
     this.service.chatAI(chat).subscribe((v) => {
       this.messages.push({
