@@ -66,8 +66,6 @@ export class MediaComponent implements OnInit {
   }
 
   isValidType(fileType: string): boolean {
-    console.info(fileType);
-
     let msgError: string = 'Arquivo não compatível com mídias suportadas.';
     let valid = identifyMediaFormat(fileType) != MediaFormatEnum.NotIdentified;
 

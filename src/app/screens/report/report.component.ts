@@ -86,7 +86,7 @@ export class ReportComponent {
       reportLabel(data)
         .toLocaleLowerCase()
         .trim()
-        .startsWith(this.filterData.toLocaleLowerCase().trim())
+        .includes(this.filterData.toLocaleLowerCase().trim())
     );
   }
 }

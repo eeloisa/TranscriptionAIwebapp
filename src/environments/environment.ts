@@ -17,14 +17,6 @@ export const environment = {
   APP_BRAINZ_NAME_TOKEN: 'brainzTokenApiAuthenticationDev',
   APP_BRAINZ_DOMAIN: 'brainz.group',
 
-  /*firebase: {
-    apiKey: '2ca3d0d8a8c88b89356ca408231a1c0c0f27ae27',
-    authDomain: 'googleapis.com',
-    projectId: 'poc-brito',
-    storageBucket: 'poc-brito.appspot.com',
-    messagingSenderId: '100909293207693021900',
-  },*/
-
   firebase: {
     apiKey: '089c64ae818e542c9a759cd03c433a017708fffe',
     authDomain: 'googleapis.com',

@@ -87,7 +87,7 @@ export class GroupMediaListComponent {
       data.title
         .toLocaleLowerCase()
         .trim()
-        .startsWith(this.filterData.toLocaleLowerCase().trim())
+        .includes(this.filterData.toLocaleLowerCase().trim())
     );
   }
 }

@@ -86,7 +86,7 @@ export class BlacklistWordsComponent {
       data.wordBlocked
         .toLocaleLowerCase()
         .trim()
-        .startsWith(this.filterData.toLocaleLowerCase().trim())
+        .includes(this.filterData.toLocaleLowerCase().trim())
     );
   }
 

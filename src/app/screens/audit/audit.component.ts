@@ -51,7 +51,7 @@ export class AuditComponent {
       data.userId
         .toLocaleLowerCase()
         .trim()
-        .startsWith(this.filterData.toLocaleLowerCase().trim())
+        .includes(this.filterData.toLocaleLowerCase().trim())
     );
   }
 }

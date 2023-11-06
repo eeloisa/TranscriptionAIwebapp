@@ -64,7 +64,7 @@ export class ParameterComponent {
       data.name
         .toLocaleLowerCase()
         .trim()
-        .startsWith(this.filterData.toLocaleLowerCase().trim())
+        .includes(this.filterData.toLocaleLowerCase().trim())
     );
   }
 
