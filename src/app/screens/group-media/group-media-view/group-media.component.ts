@@ -345,7 +345,7 @@ export class GroupMediaComponent {
   }
 
   isQuotaExceeded(): boolean {
-    return this.account?.userCotaAvailable <= 0;
+    return this.account == null || this.account.userCotaAvailable <= 0;
   }
 
   deleteSelection() {
