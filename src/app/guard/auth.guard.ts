@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 export const AuthGuard = () => {
   const authService = inject(AuthService);
 
-  if (!authService.logado) {
+  if (!authService.isLogged) {
     authService.validateLogin();
     return false;
   }

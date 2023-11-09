@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private accountService: AccountService
   ) {
-    if (this.authService.logado) {
+    if (this.authService.isLogged) {
       this.goToApp();
     }
   }

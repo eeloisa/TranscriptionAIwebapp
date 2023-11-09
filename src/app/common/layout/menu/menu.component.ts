@@ -51,7 +51,7 @@ export class MenuComponent {
 
   constructor(private authService: AuthService){
     this.menus.forEach(menu => {
-      if(authService.isRotaPermitida(menu.link)){
+      if(authService.isPermittedRoute(menu.link)){
         this.items.push(menu);
       }
     });

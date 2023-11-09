@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     private parameterService: ParameterService,
     private themeService: NbThemeService
   ) {
-    this.isLogged = authService.logado;
+    this.isLogged = authService.isLogged;
 
     this.authService.isLoggedEmitter.subscribe((data) => {
       this.isLogged = data;

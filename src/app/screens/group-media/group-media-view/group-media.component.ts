@@ -103,7 +103,7 @@ export class GroupMediaComponent {
     this.selection = new SelectionModel<Media>(true, initialSelection);
 
     this.accountService
-      .getById(this.authService.usuarioLogado.code)
+      .getById(this.authService.loggedUser.code)
       .subscribe((res) => {
         this.account = res;
         this.authService.account.emit(res);

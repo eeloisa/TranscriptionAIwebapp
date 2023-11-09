@@ -74,7 +74,7 @@ export class TranscriptionComponent implements AfterViewInit {
   ) {
     this.route.params.subscribe((params) => (this.groupMediaId = params['id']));
 
-    this.userName = authService.usuarioLogado.name;
+    this.userName = authService.loggedUser.name;
 
     this.service.getByGroupMediaId(this.groupMediaId).subscribe((data) => {
       if (data == undefined) {

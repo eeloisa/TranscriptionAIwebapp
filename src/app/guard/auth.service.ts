@@ -32,7 +32,7 @@ export class AuthService {
 
     router.events.forEach((event: NavigationEvent) => {
       if (event instanceof RoutesRecognized) {
-        this.verificarAutenticacao(event);
+        this.validateAuthentication(event);
       }
     });
   }
@@ -47,19 +47,19 @@ export class AuthService {
     this.routesPermissions.set('transcription', 'transcription');
   }
 
-  private permissoes: string[] = null;
+  private permissions: string[] = null;
 
   public get accessToken() {
     return this.cookieStoreService.getAccessToken();
   }
 
-  public get logado(): boolean {
-    return this.usuarioLogado != null;
+  public get isLogged(): boolean {
+    return this.loggedUser != null;
   }
 
-  public get usuarioLogado(): UserBrainz {
+  public get loggedUser(): UserBrainz {
     const accessToken = this.accessToken;
-    if (!accessToken || this.autenticacaoExpirada(accessToken)) {
+    if (!accessToken || this.isTokenExpired(accessToken)) {
       return null;
     }
 
@@ -79,13 +79,13 @@ export class AuthService {
     return this.jwtHelperService.decodeToken(token);
   }
 
-  private async verificarAutenticacao(event: RoutesRecognized) {
+  private async validateAuthentication(event: RoutesRecognized) {
     if (event.url.includes('/login')) {
       this.isLoggedEmitter.emit(false);
       return;
     }
 
-    if (!this.logado) {
+    if (!this.isLogged) {
       this.validateLogin();
       return;
     }
@@ -95,11 +95,11 @@ export class AuthService {
       event.state.root.firstChild.data['requiresAuthentication'] === undefined;
 
     if (requiresAuthentication) {
-      this.verificarPermissao(event);
+      this.validatePermission(event);
     }
   }
 
-  private async verificarPermissao(event: RoutesRecognized) {
+  private async validatePermission(event: RoutesRecognized) {
     if (event.url.includes('/forbidden') || event.url == '/') {
       return;
     }
@@ -110,19 +110,29 @@ export class AuthService {
 
     const route = event.url;
 
-    if (requiresPermission && !this.isRotaPermitida(route)) {
-      return this.router.navigate(['/forbidden'], {
-        queryParams: { route: route },
-      });
+    if (requiresPermission) {
+      if (!this.isPermittedSystem() || !this.isPermittedRoute(route)) {
+        return this.router.navigate(['/forbidden'], {
+          queryParams: { route: route },
+        });
+      }
     }
   }
 
-  public isRotaPermitida = function (rota: string): boolean {
-    if (!this.permissoes) {
-      this.obterPermissoes(this.accessToken);
+  public isPermittedSystem(): boolean {
+    const aplications: Application[] = JSON.parse(
+      this.decodeToken(this.accessToken).applications
+    );
+
+    return environment.APP_APPLICATION_ID == aplications[0].Id;
+  }
+
+  public isPermittedRoute = function (rota: string): boolean {
+    if (!this.permissions) {
+      this.getPermissions(this.accessToken);
     }
 
-    if (this.permissoes[0].toLowerCase().trim() == 'all') {
+    if (this.permissions[0].toLowerCase().trim() == 'all') {
       return true;
     }
 
@@ -134,7 +144,7 @@ export class AuthService {
 
       if (
         rota.includes(rotaMapKey) &&
-        this.permissoes.find((p) => p == rotaMapValue) != undefined
+        this.permissions.find((p) => p == rotaMapValue) != undefined
       ) {
         authorized = true;
         return;
@@ -174,15 +184,15 @@ export class AuthService {
 
   private saveAccessToken(accessToken: string) {
     this.cookieStoreService.saveAccessToken(accessToken);
-    this.obterPermissoes(accessToken);
+    this.getPermissions(accessToken);
   }
 
-  private obterPermissoes(accessToken: string) {
+  private getPermissions(accessToken: string) {
     const aplications: Application[] = JSON.parse(
       this.decodeToken(accessToken).applications
     );
 
-    this.permissoes = this.generateRoles(aplications);
+    this.permissions = this.generateRoles(aplications);
   }
 
   private generateRoles(aplications: Application[]): string[] {
@@ -204,10 +214,10 @@ export class AuthService {
   private removeAccessToken() {
     this.cookieStoreService.removeAccessToken();
 
-    this.permissoes = [];
+    this.permissions = [];
   }
 
-  public autenticacaoExpirada(accessToken: string): boolean {
+  public isTokenExpired(accessToken: string): boolean {
     accessToken = accessToken || this.accessToken;
     if (!accessToken) {
       return true;
@@ -216,7 +226,7 @@ export class AuthService {
     return this.jwtHelperService.isTokenExpired(accessToken);
   }
 
-  public obterDataExpiracaoToken(): Date {
+  public getTokenExpirationDate(): Date {
     const accessToken = this.accessToken;
     if (!accessToken) {
       return null;

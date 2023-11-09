@@ -81,6 +81,6 @@ export class UserListComponent {
   }
 
   isDeletable(obj: Account) {
-    return obj.accountId != this.authService.usuarioLogado.code;
+    return obj.accountId != this.authService.loggedUser.code;
   }
 }

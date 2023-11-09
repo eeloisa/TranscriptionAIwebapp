@@ -5,10 +5,10 @@ export class Authorization {
 }
 
 export class Application {
-  id: string;
-  name: string;
-  code: string;
-  redirectDomain: string;
+  Id: string;
+  Name: string;
+  Code: string;
+  RedirectDomain: string;
   Profiles: Profile[];
 }
 

@@ -21,7 +21,7 @@ export class ProfileMenuComponent implements OnInit {
     private menuService: NbMenuService,
     private accountService: AccountService
   ) {
-    this.user = authService.usuarioLogado;
+    this.user = authService.loggedUser;
 
     this.authService.account.subscribe((data) => {
       this.account = data;
