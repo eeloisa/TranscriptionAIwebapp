@@ -124,7 +124,15 @@ export class AuthService {
       this.decodeToken(this.accessToken).applications
     );
 
-    return environment.APP_APPLICATION_ID == aplications[0].Id;
+    let permitted =
+      environment.APP_APPLICATION_ID == aplications[0].Id &&
+      'transcription_user_api' != aplications[0].Profiles[0].Code;
+
+    if (!permitted) {
+      this.isLoggedEmitter.emit(false);
+    }
+
+    return permitted;
   }
 
   public isPermittedRoute = function (rota: string): boolean {

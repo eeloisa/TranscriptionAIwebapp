@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   loginSubmit() {
     let authorizationPayLoad: AuthorizationPayload = new AuthorizationPayload();
     authorizationPayLoad.login = this.login.email;
-    authorizationPayLoad.password = btoa(this.login.password);
+    authorizationPayLoad.password = this.login.password;
 
     this.accountService.login(authorizationPayLoad).subscribe((r) => {
       if (r == undefined || !r.success) {
